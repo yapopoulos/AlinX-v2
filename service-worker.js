@@ -1,4 +1,4 @@
-var VERSION_CACHE = "alinx-v1";
+var VERSION_CACHE = "alinx-v2";
 
 var FICHIERS_A_METTRE_EN_CACHE = [
   "./",

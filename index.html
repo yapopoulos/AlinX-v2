@@ -1610,13 +1610,6 @@
     };
 
     var profils = JSON.parse(localStorage.getItem("alinx_profils") || "[]");
-    if (profils.length === 0) {
-      profils = [
-        { nom: "Aline", sexe: "fille", theme: "lumineux" },
-        { nom: "J\u00e9r\u00e9my", sexe: "garcon", theme: "lumineux" }
-      ];
-      localStorage.setItem("alinx_profils", JSON.stringify(profils));
-    }
 
     var sexeChoisi = "fille";
     var prenomTemp = "";
