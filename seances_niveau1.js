@@ -21,8 +21,8 @@ var SEANCES_NIVEAU1 = {
               { nom: "Rotation d\u2019\u00e9paules", series: 2, reps: 10, repos: 30, note: "chaque sens" },
               { nom: "Australian Pull-ups", series: 4, reps: "max", repos: 120, objectif: 6 },
               { nom: "N\u00e9gatifs tractions", series: 4, reps: 3, repos: 150, note: "descente 5 secondes" },
-              { nom: "Pompes classiques", series: 4, reps: "max", repos: 90, note: "s\u2019arr\u00eater avant l\u2019\u00e9chec", objectif: 8 },
-              { nom: "Dips \u00e9lastique", series: 4, reps: 8, repos: 90 },
+              { nom: "Pompes classiques", series: 4, reps: "max", repos: 90, note: "s\u2019arr\u00eater avant l\u2019\u00e9chec", objectif: 10 },
+              { nom: "Dips \u00e9lastique", series: 4, reps: 10, repos: 90 },
               { nom: "Gainage planche", series: 3, reps: "max temps", repos: 60, objectif: 30 },
               { nom: "Gainage lat\u00e9ral", series: 3, reps: "max temps", repos: 45, note: "chaque c\u00f4t\u00e9", objectif: 20 }
             ]

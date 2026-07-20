@@ -32,7 +32,7 @@ var SEANCES_NIVEAU2 = {
               { nom: "Tuck Front Lever", series: 4, reps: "max temps", repos: 120, objectif: 15 },
               { nom: "Mont\u00e9e/descente croix de fer", series: 4, reps: 3, repos: 150 },
               { nom: "Dips anneaux lest\u00e9s +5kg", series: 3, reps: 8, repos: 90 },
-              { nom: "Finisher \u2014 Tuck barres parall\u00e8les", series: 5, reps: "max", repos: 60, objectif: 8 }
+              { nom: "Finisher \u2014 Tuck barres parall\u00e8les", series: 5, reps: "max temps", repos: 60, objectif: 8 }
             ]
           },
           s3: {
@@ -40,9 +40,9 @@ var SEANCES_NIVEAU2 = {
             nom: "S\u00e9ance 3 \u2014 Circuits + Isom\u00e9trie",
             duree: 75,
             exercices: [
-              { nom: "Circuit 1 \u2014 15 dips / 10 tractions / 20 pompes", series: 3, reps: "circuit", repos: 120 },
-              { nom: "Circuit 2 \u2014 8 dips / 8 pompes / 8 dips", series: 3, reps: "circuit", repos: 90 },
-              { nom: "Circuit 3 \u2014 4 pompes / 5 dips / 4 pompes / 5 dips / 4 pompes / 5 dips", series: 3, reps: "circuit", repos: 60 },
+              { nom: "Circuit 1 \u2014 15 dips / 10 tractions / 20 pompes", series: 1, reps: "circuit", repos: 120 },
+              { nom: "Circuit 2 \u2014 8 dips / 8 pompes / 8 dips", series: 1, reps: "circuit", repos: 90 },
+              { nom: "Circuit 3 \u2014 4 pompes / 5 dips / 4 pompes / 5 dips / 4 pompes / 5 dips", series: 1, reps: "circuit", repos: 60 },
               { nom: "Routine 1 \u2014 4 tr / 3'' iso menton haut / 4 tr / 3'' iso t\u00eate dessous / 4 tr / 3'' iso bas", series: 2, reps: "routine", repos: 120 },
               { nom: "Routine 2 \u2014 10'' iso menton haut / 10'' iso t\u00eate dessous / 10'' bras tendus +5kg / max tr", series: 2, reps: "routine", repos: 120 },
               { nom: "EMOM 6 min \u2014 Tour 1 : Dips iso 10'' bas/milieu/tendus \u2014 Tour 2 : Pompes iso 12'' bas/milieu/tendus", series: 1, reps: "EMOM", repos: 0 }
@@ -63,8 +63,8 @@ var SEANCES_NIVEAU2 = {
                   { repos: 120, mouvements: [{label:"MU", valeur:1}, {label:"dips bar", valeur:2}, {label:"tractions", valeur:2}, {label:"iso t\u00eate dessus (s)", valeur:10}] }
                 ]
               },
-              { nom: "Routine Traction \u2014 12 tractions / 1-2-3-4-5 deadstop 1'' au-dessus / 8 tractions", series: 2, reps: "routine", repos: 120 },
-              { nom: "Routine Dips \u2014 18 dips / 2-4-6-8 deadstop 1'' \u00e0 90\u00b0 / 10 dips", series: 2, reps: "routine", repos: 90 },
+              { nom: "Routine Traction \u2014 12 tractions / 1-2-3-4-5 deadstop 1'' au-dessus / 8 tractions", series: 1, reps: "routine", repos: 120 },
+              { nom: "Routine Dips \u2014 18 dips / 2-4-6-8 deadstop 1'' \u00e0 90\u00b0 / 10 dips", series: 1, reps: "routine", repos: 90 },
               { nom: "EMOM 5 min \u2014 10'' iso pompes + 10 pompes", series: 1, reps: "EMOM", repos: 0 }
             ]
           },
@@ -87,8 +87,8 @@ var SEANCES_NIVEAU2 = {
             nom: "S\u00e9ance 6 \u2014 Vitesse + Deadstop + Finisher",
             duree: 70,
             exercices: [
-              { nom: "Circuit Vitesse \u2014 10 pompes / 5 tractions / 10 dips", series: 3, reps: "circuit", repos: 120 },
-              { nom: "Circuit Isom\u00e9trie \u2014 1 MU / 10'' t\u00eate au-dessus / 10'' t\u00eate dessous / 10'' bras tendus / 15 dips / 10 tr", series: 3, reps: "circuit", repos: 150 },
+              { nom: "Circuit Vitesse \u2014 10 pompes / 5 tractions / 10 dips", series: 1, reps: "circuit", repos: 120 },
+              { nom: "Circuit Isom\u00e9trie \u2014 1 MU / 10'' t\u00eate au-dessus / 10'' t\u00eate dessous / 10'' bras tendus / 15 dips / 10 tr", series: 1, reps: "circuit", repos: 150 },
               {
                 nom: "Circuit Deadstop",
                 lignes: [
@@ -124,9 +124,9 @@ var SEANCES_NIVEAU2 = {
               { nom: "Tractions", series: 6, reps: 10, repos: 90, note: "= 60 reps" },
               { nom: "Dips", series: 6, reps: 18, repos: 90, note: "= 108 reps" },
               { nom: "Pompes", series: 6, reps: 30, repos: 60, note: "= 180 reps" },
-              { nom: "Tractions \u2014 6 +5kg / 6 pdc / 6 \u00e9lastique max explo", series: 3, reps: "tri-set", repos: 120 },
-              { nom: "Dips \u2014 9 +5kg / 9 contre \u00e9lastique / 9 pdc", series: 3, reps: "tri-set", repos: 120 },
-              { nom: "Pompes \u2014 12 +10kg / 12 contre \u00e9lastique / 12 pdc", series: 3, reps: "tri-set", repos: 90 }
+              { nom: "Tractions \u2014 6 +5kg / 6 pdc / 6 \u00e9lastique max explo", series: 1, reps: "tri-set", repos: 120 },
+              { nom: "Dips \u2014 9 +5kg / 9 contre \u00e9lastique / 9 pdc", series: 1, reps: "tri-set", repos: 120 },
+              { nom: "Pompes \u2014 12 +10kg / 12 contre \u00e9lastique / 12 pdc", series: 1, reps: "tri-set", repos: 90 }
             ]
           },
           s2: {
@@ -139,7 +139,7 @@ var SEANCES_NIVEAU2 = {
               { nom: "Tuck Front Lever", series: 4, reps: "max temps", repos: 120, objectif: 16 },
               { nom: "Mont\u00e9e/descente croix de fer", series: 4, reps: 3, repos: 150 },
               { nom: "Dips anneaux lest\u00e9s +5kg", series: 3, reps: 10, repos: 90 },
-              { nom: "Finisher \u2014 Tuck barres parall\u00e8les", series: 5, reps: "max", repos: 60, objectif: 9 }
+              { nom: "Finisher \u2014 Tuck barres parall\u00e8les", series: 5, reps: "max temps", repos: 60, objectif: 9 }
             ]
           },
           s3: {
@@ -147,9 +147,9 @@ var SEANCES_NIVEAU2 = {
             nom: "S\u00e9ance 3 \u2014 Circuits intensifs",
             duree: 75,
             exercices: [
-              { nom: "Circuit 1 \u2014 1 MU / 18 dips / 12 tractions / 25 pompes", series: 3, reps: "circuit", repos: 120 },
-              { nom: "Circuit 2 \u2014 10'' t\u00eate en haut +5kg / 10 pompes / 10 tractions / 10 pompes / 10'' t\u00eate dessous +5kg", series: 3, reps: "circuit", repos: 120 },
-              { nom: "Circuit 3 \u2014 15'' bras tendus / 5 dips +5kg / 5 tractions +5kg / 5 dips +5kg / 15'' bras tendus", series: 3, reps: "circuit", repos: 120 },
+              { nom: "Circuit 1 \u2014 1 MU / 18 dips / 12 tractions / 25 pompes", series: 1, reps: "circuit", repos: 120 },
+              { nom: "Circuit 2 \u2014 10'' t\u00eate en haut +5kg / 10 pompes / 10 tractions / 10 pompes / 10'' t\u00eate dessous +5kg", series: 1, reps: "circuit", repos: 120 },
+              { nom: "Circuit 3 \u2014 15'' bras tendus / 5 dips +5kg / 5 tractions +5kg / 5 dips +5kg / 15'' bras tendus", series: 1, reps: "circuit", repos: 120 },
               { nom: "EMOM 6 min \u2014 Tour 1 : 6'' t\u00eate en haut + 3 tr deadstop \u2014 Tour 2 : 6'' t\u00eate dessous + 3 tr deadstop", series: 1, reps: "EMOM", repos: 0 },
               { nom: "EMOM 6 min \u2014 10'' iso bas dips + 6 dips", series: 1, reps: "EMOM", repos: 0 },
               { nom: "Finisher Pompes \u2014 10'' iso milieu / 10 pompes / 5'' bras tendus / 5 pompes / 10'' iso milieu / 10 pompes", series: 1, reps: "finisher", repos: 90 }
@@ -256,7 +256,7 @@ var SEANCES_NIVEAU2 = {
               { nom: "Tuck Front Lever", series: 4, reps: "max temps", repos: 120, objectif: 17 },
               { nom: "Mont\u00e9e/descente croix de fer", series: 4, reps: 4, repos: 150 },
               { nom: "Dips anneaux lest\u00e9s +5kg", series: 3, reps: 12, repos: 90 },
-              { nom: "Finisher \u2014 Tuck barres parall\u00e8les", series: 5, reps: "max", repos: 60, objectif: 10 }
+              { nom: "Finisher \u2014 Tuck barres parall\u00e8les", series: 5, reps: "max temps", repos: 60, objectif: 10 }
             ]
           },
           s3: {
@@ -291,9 +291,9 @@ var SEANCES_NIVEAU2 = {
             nom: "S\u00e9ance 4 \u2014 Circuits lest\u00e9s + EMOM",
             duree: 70,
             exercices: [
-              { nom: "Circuit lest\u00e9 d\u00e9gressif \u2014 8 tr +5kg / 10 dips +5kg / 20 pu / 8 tr / 10 dips", series: 3, reps: "circuit", repos: 120 },
-              { nom: "Circuit lest\u00e9 deadstop \u2014 5 tr +5kg / 5 dips +5kg / 15'' t\u00eate +5kg / 15'' 90° +5kg / 5 tr / 5 dips", series: 3, reps: "circuit", repos: 120 },
-              { nom: "Circuit pdc deadstop \u2014 20'' t\u00eate / 10 dips / 20 pu / 10 dips / 20'' t\u00eate", series: 2, reps: "circuit", repos: 90 },
+              { nom: "Circuit lest\u00e9 d\u00e9gressif \u2014 8 tr +5kg / 10 dips +5kg / 20 pu / 8 tr / 10 dips", series: 1, reps: "circuit", repos: 120 },
+              { nom: "Circuit lest\u00e9 deadstop \u2014 5 tr +5kg / 5 dips +5kg / 15'' t\u00eate +5kg / 15'' 90° +5kg / 5 tr / 5 dips", series: 1, reps: "circuit", repos: 120 },
+              { nom: "Circuit pdc deadstop \u2014 20'' t\u00eate / 10 dips / 20 pu / 10 dips / 20'' t\u00eate", series: 1, reps: "circuit", repos: 90 },
               { nom: "EMOM 6 min \u2014 Tour 1 : 10'' t\u00eate +10kg + 5 dips \u2014 Tour 2 : 10'' dessous +10kg + 5 dips", series: 1, reps: "EMOM", repos: 0 }
             ]
           },

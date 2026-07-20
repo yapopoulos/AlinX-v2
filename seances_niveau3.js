@@ -75,9 +75,18 @@ var SEANCES_NIVEAU3 = {
             nom: "S\u00e9ance 5 \u2014 Circuits Vitesse + Deadstop",
             duree: 60,
             exercices: [
-              { nom: "Circuit Vitesse 1 \u2014 10 pompes / 5 tractions / 10 dips puis +10kg", series: 1, reps: "circuit", repos: 120 },
-              { nom: "Circuit Vitesse 2 \u2014 5 tractions +10kg / 10 dips +10kg / 10 pompes puis pdc", series: 1, reps: "circuit", repos: 120 },
-              { nom: "Circuit Deadstop 1 \u2014 5 tr / 10 pu / 15 dips puis +10kg invers\u00e9", series: 1, reps: "circuit", repos: 120 },
+              { nom: "Circuit Vitesse 1", note: "Ench\u00e2\u00eene les 3 mouvements sans repos, prends la courte r\u00e9cup\u00e9ration, puis refais le circuit avec le lest indiqu\u00e9.", lignes: [
+                { repos: 30, mouvements: [{ label: "pompes", valeur: 10 }, { label: "tractions", valeur: 5 }, { label: "dips", valeur: 10 }] },
+                { repos: 120, mouvements: [{ label: "pompes", valeur: 10 }, { label: "tractions +10kg", valeur: 5 }, { label: "dips +10kg", valeur: 10 }] }
+              ] },
+              { nom: "Circuit Vitesse 2", note: "Ench\u00e2\u00eene les 3 mouvements lest\u00e9s sans repos, prends la courte r\u00e9cup\u00e9ration, puis refais un circuit all\u00e9g\u00e9 sans lest.", lignes: [
+                { repos: 30, mouvements: [{ label: "tractions +10kg", valeur: 5 }, { label: "dips +10kg", valeur: 10 }, { label: "pompes", valeur: 10 }] },
+                { repos: 120, mouvements: [{ label: "tractions", valeur: 5 }, { label: "dips", valeur: 10 }] }
+              ] },
+              { nom: "Circuit Deadstop 1", note: "Ench\u00e2\u00eene les 3 mouvements en deadstop sans repos, prends la r\u00e9cup\u00e9ration, puis refais le circuit en ordre invers\u00e9 avec le lest indiqu\u00e9.", lignes: [
+                { repos: 60, mouvements: [{ label: "tractions", valeur: 5 }, { label: "pompes", valeur: 10 }, { label: "dips", valeur: 15 }] },
+                { repos: 120, mouvements: [{ label: "dips +10kg", valeur: 15 }, { label: "pompes +10kg", valeur: 10 }, { label: "tractions +10kg", valeur: 5 }] }
+              ] },
               { nom: "Circuit Deadstop 2 \u2014 5 tr +10kg / 5 tr pdc / 10 dips +10kg / 10 dips / 10 pu +10kg / 10 pu", series: 1, reps: "circuit", repos: 120 },
               { nom: "AMRAP 10 min \u2014 10'' t\u00eate au-dessus +15kg / 10'' 90° dips +15kg / 5 tractions deadstop / 5 dips deadstop", series: 1, reps: "AMRAP", repos: 0 }
             ]
@@ -162,16 +171,18 @@ var SEANCES_NIVEAU3 = {
               },
               {
                 nom: "Routine Tractions/Bar dips",
+                note: "Tiens le plus longtemps possible sur chaque phase iso (max temps en secondes), ench\u00ee\u00een\u00e9e avec les dips bar indiqu\u00e9s.",
                 lignes: [
-                  { repos: 120, mouvements: [{label:"iso t\u00eate dessus +10kg (s)", valeur:20}, {label:"dips bar", valeur:20}] },
-                  { repos: 120, mouvements: [{label:"iso t\u00eate dessous +10kg (s)", valeur:20}, {label:"dips bar", valeur:20}] }
+                  { repos: 120, mouvements: [{label:"iso t\u00eate dessus +10kg (max sec)", valeur:0}, {label:"dips bar", valeur:20}] },
+                  { repos: 120, mouvements: [{label:"iso t\u00eate dessous +10kg (max sec)", valeur:0}, {label:"dips bar", valeur:20}] }
                 ]
               },
               {
                 nom: "Routine Dips/Tractions",
+                note: "Tiens le plus longtemps possible sur chaque phase iso (max temps en secondes), ench\u00ee\u00een\u00e9e avec les tractions indiqu\u00e9es.",
                 lignes: [
-                  { repos: 120, mouvements: [{label:"iso bas dips +10kg (s)", valeur:20}, {label:"tractions", valeur:10}] },
-                  { repos: 120, mouvements: [{label:"iso milieu dips +10kg (s)", valeur:20}, {label:"tractions", valeur:10}] }
+                  { repos: 120, mouvements: [{label:"iso bas dips +10kg (max sec)", valeur:0}, {label:"tractions", valeur:10}] },
+                  { repos: 120, mouvements: [{label:"iso milieu dips +10kg (max sec)", valeur:0}, {label:"tractions", valeur:10}] }
                 ]
               }
             ]

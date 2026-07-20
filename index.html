@@ -258,7 +258,8 @@
     #ecran-seance.actif { display: flex; }
 
     /* HEADER SÉANCE */
-    .seance-header { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-bottom: 1px solid var(--bordure); position: sticky; top: 0; background: var(--fond); z-index: 10; }
+    .seance-header { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-bottom: 1px solid var(--bordure); position: fixed; top: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 480px; background: var(--fond); z-index: 45; }
+    #ecran-seance { padding-top: 56px; }
     .seance-header-retour { background: none; border: none; font-size: 20px; color: var(--accent); cursor: pointer; padding: 4px 8px; }
     .seance-header-info { display: flex; flex-direction: column; align-items: center; }
     .seance-header-nom { font-size: 13px; font-weight: bold; color: var(--texte); letter-spacing: 1px; }
@@ -277,7 +278,7 @@
     .mood-valider { display: block; margin: 12px auto 0; padding: 8px 24px; background: var(--accent); border: none; border-radius: 20px; color: white; font-family: Georgia, serif; font-size: 13px; cursor: pointer; }
 
     /* TIMER REPOS */
-    #bloc-timer { margin: 12px 16px; background: var(--fond2); border: 1px solid var(--bordure); border-radius: 16px; padding: 16px; display: flex; align-items: center; justify-content: space-between; }
+    #bloc-timer { position: fixed; top: 56px; left: 50%; transform: translateX(-50%); width: calc(100% - 32px); max-width: 448px; margin: 12px 0 0; background: var(--fond2); border: 1px solid var(--bordure); border-radius: 16px; padding: 16px; display: flex; align-items: center; justify-content: space-between; z-index: 44; box-sizing: border-box; }
     .timer-btn-adj { background: var(--carte); border: none; border-radius: 8px; padding: 8px 14px; font-size: 13px; color: var(--texte2); cursor: pointer; font-family: Georgia, serif; transition: all 0.2s; }
     .timer-btn-adj:hover { background: var(--accent); color: white; }
     .timer-cercle { display: flex; flex-direction: column; align-items: center; gap: 4px; }
@@ -287,7 +288,7 @@
 
     /* LISTE EXERCICES */
     .exercices-liste { display: flex; flex-direction: column; gap: 8px; padding: 8px 16px; }
-    .exo-bloc { background: var(--fond2); border: 1px solid var(--bordure); border-radius: 14px; overflow: hidden; transition: border-color 0.2s; }
+    .exo-bloc { background: var(--fond2); border: 1px solid var(--bordure); border-radius: 14px; overflow: hidden; transition: border-color 0.2s; scroll-margin-top: 200px; }
     .exo-bloc.actif { border-color: var(--accent); }
     .exo-bloc.termine { border-color: var(--succes); opacity: 0.8; }
     .exo-header { display: flex; align-items: center; gap: 12px; padding: 14px 16px; cursor: pointer; }
@@ -299,7 +300,10 @@
     .exo-contenu { display: none; padding: 0 16px 16px; border-top: 1px solid var(--bordure); }
     .exo-contenu.visible { display: block; }
     .exo-semaine-prec { font-size: 11px; color: var(--texte2); font-style: italic; padding: 8px 0 12px; }
-    .serie-bloc { background: var(--carte); border-radius: 10px; padding: 12px; margin-bottom: 8px; transition: opacity 0.3s; }
+    .exo-max-temps-badge { font-size: 11px; color: var(--accent); font-weight: bold; letter-spacing: 1px; padding: 6px 10px; background: var(--carte); border-radius: 8px; margin-bottom: 8px; text-align: center; }
+    .exo-note-rappel { font-size: 12px; font-style: italic; color: var(--texte2); padding: 8px 10px; background: var(--carte); border-radius: 8px; margin-bottom: 8px; }
+    .exo-note-rappel::before { content: "\1F4CC  "; }
+    .serie-bloc { background: var(--carte); border-radius: 10px; padding: 12px; margin-bottom: 8px; transition: opacity 0.3s; scroll-margin-top: 200px; }
     .serie-bloc.validee { opacity: 0.5; }
     .serie-titre { font-size: 11px; letter-spacing: 2px; color: var(--texte2); margin-bottom: 8px; }
     .serie-controls { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; flex-wrap: wrap; }
@@ -409,6 +413,35 @@
     .profil-menu-icone { font-size: 18px; margin-right: 12px; }
     .profil-menu-texte { flex: 1; font-size: 14px; color: var(--texte); }
     .profil-menu-fleche { font-size: 14px; color: var(--texte2); }
+
+    #ecran-parametres { display: none; width: 100%; max-width: 480px; min-height: 100vh; flex-direction: column; padding: 0 0 40px 0; }
+    #ecran-parametres.actif { display: flex; }
+    .param-section { margin: 16px; padding: 16px; background: var(--fond2); border: 1px solid var(--bordure); border-radius: 16px; }
+    .param-ligne { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; }
+    .param-label { font-size: 14px; color: var(--texte); }
+    .param-sous-label { font-size: 11px; color: var(--texte2); font-style: italic; margin-top: 2px; }
+    .param-switch { width: 46px; height: 26px; border-radius: 20px; background: var(--carte); border: 1px solid var(--bordure); position: relative; cursor: pointer; transition: background 0.2s; flex-shrink: 0; }
+    .param-switch.actif { background: var(--accent); }
+    .param-switch-bille { width: 20px; height: 20px; border-radius: 50%; background: white; position: absolute; top: 2px; left: 2px; transition: left 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.3); }
+    .param-switch.actif .param-switch-bille { left: 22px; }
+    .param-slider { width: 100%; margin-top: 8px; }
+    .param-btn-danger { width: 100%; padding: 12px; border-radius: 12px; border: 1px solid var(--danger); background: transparent; color: var(--danger); font-family: Georgia, serif; font-size: 13px; font-weight: bold; cursor: pointer; margin-top: 8px; }
+    .param-btn-secondaire { width: 100%; padding: 12px; border-radius: 12px; border: 1px solid var(--accent); background: transparent; color: var(--accent); font-family: Georgia, serif; font-size: 13px; font-weight: bold; cursor: pointer; margin-top: 8px; }
+
+    #overlay-cycle-termine { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 300; flex-direction: column; align-items: center; justify-content: center; padding: 24px; }
+    #overlay-cycle-termine.actif { display: flex; }
+    .cycle-icone-wrap { width: 100px; height: 100px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 46px; margin-bottom: 20px; border: 3px solid var(--accent); background: rgba(200,168,75,0.15); animation: tomberBadge 0.7s cubic-bezier(0.34,1.56,0.64,1); }
+    .cycle-titre-petit { font-size: 11px; letter-spacing: 4px; color: var(--accent); margin-bottom: 16px; animation: fadeIn 0.6s ease 0.3s both; }
+    .cycle-nom { font-size: 22px; font-style: italic; color: white; margin-bottom: 8px; text-align: center; animation: fadeIn 0.6s ease 0.5s both; }
+    .cycle-suivant { font-size: 14px; color: #ccc; text-align: center; margin-bottom: 24px; animation: fadeIn 0.6s ease 0.7s both; }
+    .cycle-btn-continuer { padding: 14px 36px; background: var(--accent); border: none; border-radius: 20px; color: white; font-family: Georgia, serif; font-size: 15px; font-weight: bold; cursor: pointer; letter-spacing: 2px; animation: fadeIn 0.6s ease 0.9s both; }
+
+    .fin-prog-flash { position: fixed; inset: 0; opacity: 0; z-index: 199; pointer-events: none; background: var(--credits); }
+    .fin-prog-flash.actif { animation: flashBadge 0.7s ease-out; }
+    #modal-fin-programme .modal-contenu > div:first-child { animation: tomberBadge 0.7s cubic-bezier(0.34,1.56,0.64,1); }
+    #modal-fin-programme h2 { animation: fadeIn 0.6s ease 0.3s both; }
+    #modal-fin-programme p { animation: fadeIn 0.6s ease 0.5s both; }
+    #modal-fin-programme .modal-actions { animation: fadeIn 0.6s ease 0.8s both; }
 
     /* OBJECTIFS PERSONNELS */
     .perso-obj-liste { display: flex; flex-direction: column; gap: 16px; }
@@ -634,6 +667,9 @@
     .exo-preview-meta { font-size: 11px; color: var(--texte2); font-style: italic; }
     .exo-preview-reps { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
     .exo-preview-badge { padding: 4px 12px; border-radius: 20px; background: var(--carte); border: 1px solid var(--bordure); font-size: 13px; font-weight: bold; color: var(--texte); }
+    .exo-preview-lignes { display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
+    .exo-preview-ligne { font-size: 12px; color: var(--texte); background: var(--carte); border: 1px solid var(--bordure); border-radius: 10px; padding: 6px 10px; }
+    .exo-preview-ligne b { color: var(--accent); margin-right: 6px; }
     .exo-preview-note { font-size: 11px; font-style: italic; color: var(--texte2); padding-top: 2px; }
 
     /* MODAL RANG */
@@ -1089,6 +1125,9 @@
     </div>
   </div>
 
+  <!-- FLASH FIN DE PROGRAMME -->
+  <div class="fin-prog-flash" id="fin-prog-flash"></div>
+
   <!-- MODAL FIN DE PROGRAMME -->
   <div id="modal-fin-programme" class="modal-overlay">
     <div class="modal-contenu" style="align-items:center; text-align:center; gap:16px;">
@@ -1159,7 +1198,7 @@
     </div>
 
     <div class="profil-actions-row" style="margin: 0 16px 16px;">
-      <div class="profil-action-item" onclick="alert('Param\u00e8tres \u2014 bient\u00f4t !')">
+      <div class="profil-action-item" onclick="allerVersEcran('parametres')">
         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="3" stroke-width="1.4"/><path d="M19.4 13a7.4 7.4 0 0 0 0-2l2-1.5-2-3.4-2.3.9a7.4 7.4 0 0 0-1.7-1l-.4-2.4h-4l-.4 2.4a7.4 7.4 0 0 0-1.7 1l-2.3-.9-2 3.4 2 1.5a7.4 7.4 0 0 0 0 2l-2 1.5 2 3.4 2.3-.9a7.4 7.4 0 0 0 1.7 1l.4 2.4h4l.4-2.4a7.4 7.4 0 0 0 1.7-1l2.3.9 2-3.4-2-1.5Z" stroke-width="1.2" stroke-linejoin="round"/></svg>
         <span>Param&#232;tres</span>
       </div>
@@ -1318,6 +1357,74 @@
     <button class="rang-btn" onclick="fermerModalRang()">JE SUIS PRÊT</button>
   </div>
 
+  <!-- ÉCRAN PARAMÈTRES -->
+  <div id="ecran-parametres">
+    <div class="detail-header">
+      <button class="detail-retour" onclick="allerVersEcran('profil')">&#8592;</button>
+      <div><h2 style="font-size:18px; font-style:italic; color:var(--texte);">Param&#232;tres</h2></div>
+    </div>
+
+    <div class="param-section">
+      <div class="stats-section-titre" style="margin-bottom:8px;">SON</div>
+      <div class="param-ligne">
+        <div>
+          <div class="param-label">Sons activ&#233;s</div>
+          <div class="param-sous-label">Cliquetis, s&#233;ances, badges...</div>
+        </div>
+        <div class="param-switch" id="param-switch-son" onclick="toggleSonActif()"><div class="param-switch-bille"></div></div>
+      </div>
+      <input type="range" class="param-slider" id="param-volume-slider" min="0" max="100" value="70" oninput="ajusterVolumeSon(this.value)">
+    </div>
+
+    <div class="param-section">
+      <div class="stats-section-titre" style="margin-bottom:8px;">C&#212;T&#201; DE LA FORCE</div>
+      <div class="param-label" style="margin-bottom:4px;">Basculer de c&#244;t&#233;</div>
+      <div class="param-sous-label" style="margin-bottom:8px;">Ton XP, tes cr&#233;dits et ta progression sont conserv&#233;s.</div>
+      <button class="param-btn-secondaire" onclick="demanderBasculeCote()">CHANGER DE C&#212;T&#201;</button>
+    </div>
+
+    <div class="param-section">
+      <div class="stats-section-titre" style="margin-bottom:8px;">DONN&#201;ES</div>
+      <button class="param-btn-danger" onclick="demanderResetProfil()">R&#201;INITIALISER MA PROGRESSION</button>
+    </div>
+  </div>
+
+  <!-- MODAL BASCULE CÔTÉ -->
+  <div id="modal-bascule-cote" class="modal-overlay">
+    <div class="modal-contenu">
+      <h2 id="bascule-cote-titre">Rejoindre le c&#244;t&#233; Obscur ?</h2>
+      <p style="font-size:13px; font-style:italic; color:var(--texte2); text-align:center;">Ton XP, tes cr&#233;dits et tes stats restent intacts. Seul ton th&#232;me visuel et ton avatar changent.</p>
+      <div class="modal-actions">
+        <button class="btn-annuler" onclick="fermerModalBasculeCote()">Annuler</button>
+        <button class="btn-confirmer" onclick="confirmerBasculeCote()">CONFIRMER</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL RESET PROFIL -->
+  <div id="modal-reset-profil" class="modal-overlay">
+    <div class="modal-contenu">
+      <h2>&#9888;&#65039; R&#233;initialiser ?</h2>
+      <p style="font-size:13px; font-style:italic; color:var(--texte2); text-align:center;">Tout ton XP, tes cr&#233;dits, tes badges et ton historique seront d&#233;finitivement effac&#233;s. Cette action est irr&#233;versible.</p>
+      <div class="modal-actions">
+        <button class="btn-annuler" onclick="fermerModalResetProfil()">Annuler</button>
+        <button class="btn-confirmer" onclick="confirmerResetProfil()" style="background:var(--danger);">R&#201;INITIALISER</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL CHANGER PROFIL -->
+  <div id="modal-changer-profil" class="modal-overlay">
+    <div class="modal-contenu">
+      <h2>Changer de profil ?</h2>
+      <p style="font-size:13px; font-style:italic; color:var(--texte2); text-align:center;">Tu pourras revenir sur ce profil \u00e0 tout moment.</p>
+      <div class="modal-actions">
+        <button class="btn-annuler" onclick="fermerModalChangerProfil()">Annuler</button>
+        <button class="btn-confirmer" onclick="confirmerChangerProfil()">CHANGER</button>
+      </div>
+    </div>
+  </div>
+
   <!-- ÉCRAN BOUTIQUE -->
   <div id="ecran-boutique">
     <div class="detail-header">
@@ -1355,6 +1462,19 @@
         <div class="cal-leg-item"><div class="cal-leg-dot aujourdhui"></div> Aujourd&#39;hui</div>
       </div>
       <button class="btn-annuler" onclick="fermerModalCalendrier()">Fermer</button>
+    </div>
+  </div>
+
+  <!-- MODAL SÉANCE INCOMPLÈTE -->
+  <div id="modal-seance-incomplete" class="modal-overlay">
+    <div class="modal-contenu" style="align-items:center; text-align:center; gap:14px;">
+      <div style="font-size:36px;">&#9888;&#65039;</div>
+      <h2>Attention</h2>
+      <p id="seance-incomplete-texte" style="font-size:13px; font-style:italic; color:var(--texte2);"></p>
+      <div class="modal-actions" style="width:100%;">
+        <button class="btn-annuler" onclick="fermerModalSeanceIncomplete()">Annuler</button>
+        <button class="btn-confirmer" onclick="confirmerFinSeanceIncomplete()">TERMINER QUAND M&#202;ME</button>
+      </div>
     </div>
   </div>
 
@@ -1434,6 +1554,15 @@
     <img id="zoom-avatar-img" class="avatar-vivant" src="" alt="">
   </div>
 
+  <!-- OVERLAY CYCLE TERMINÉ -->
+  <div id="overlay-cycle-termine">
+    <div class="cycle-icone-wrap">&#127942;</div>
+    <div class="cycle-titre-petit">&#10024; CYCLE TERMIN&#201; &#10024;</div>
+    <div class="cycle-nom" id="cycle-termine-nom">Cycle 1</div>
+    <div class="cycle-suivant" id="cycle-termine-suivant">Direction le Cycle 2 !</div>
+    <button class="cycle-btn-continuer" onclick="fermerOverlayCycleTermine()">CONTINUER</button>
+  </div>
+
   <!-- OVERLAY DÉBLOCAGE BADGE -->
   <div id="overlay-badge-debloque">
     <div class="badge-debloque-flash" id="badge-debloque-flash"></div>
@@ -1467,6 +1596,18 @@
       <div class="modal-actions">
         <button class="btn-annuler" onclick="fermerCreation()">Annuler</button>
         <button class="btn-confirmer" onclick="passerAuCote()">SUIVANT</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL SUPPRESSION PROFIL -->
+  <div id="modal-suppr-profil" class="modal-overlay">
+    <div class="modal-contenu">
+      <h2>Supprimer ce profil ?</h2>
+      <p id="suppr-profil-texte" style="font-size:13px; font-style:italic; color:var(--texte2); text-align:center;"></p>
+      <div class="modal-actions">
+        <button class="btn-annuler" onclick="fermerModalSupprProfil()">Annuler</button>
+        <button class="btn-confirmer" onclick="confirmerSupprProfil()" style="background:var(--danger);">SUPPRIMER</button>
       </div>
     </div>
   </div>
@@ -2059,6 +2200,49 @@
 
     var idPersoASupprimer = null;
 
+    function demanderBasculeCote() {
+      var futurCote = profilActif.theme === "obscur" ? "lumineux" : "obscur";
+      document.getElementById("bascule-cote-titre").textContent = futurCote === "obscur" ? "Rejoindre le c\u00f4t\u00e9 Obscur ?" : "Revenir vers la Lumi\u00e8re ?";
+      document.getElementById("modal-bascule-cote").classList.add("actif");
+    }
+
+    function fermerModalBasculeCote() {
+      document.getElementById("modal-bascule-cote").classList.remove("actif");
+    }
+
+    function confirmerBasculeCote() {
+      var nouveauTheme = profilActif.theme === "obscur" ? "lumineux" : "obscur";
+      profilActif.theme = nouveauTheme;
+      var idx = profils.findIndex(function(p) { return p.nom === profilActif.nom; });
+      if (idx !== -1) { profils[idx].theme = nouveauTheme; localStorage.setItem("alinx_profils", JSON.stringify(profils)); }
+      if (nouveauTheme === "obscur") document.body.classList.add("obscur");
+      else document.body.classList.remove("obscur");
+      fermerModalBasculeCote();
+      afficherParametres();
+      afficherAccueil();
+    }
+
+    function demanderResetProfil() {
+      document.getElementById("modal-reset-profil").classList.add("actif");
+    }
+
+    function fermerModalResetProfil() {
+      document.getElementById("modal-reset-profil").classList.remove("actif");
+    }
+
+    function confirmerResetProfil() {
+      var prefixe = "profil_" + profilActif.nom;
+      var clesASupprimer = [];
+      for (var i = 0; i < localStorage.length; i++) {
+        var cle = localStorage.key(i);
+        if (cle.indexOf(prefixe) === 0) clesASupprimer.push(cle);
+      }
+      clesASupprimer.forEach(function(cle) { localStorage.removeItem(cle); });
+      fermerModalResetProfil();
+      alert("Ta progression a \u00e9t\u00e9 r\u00e9initialis\u00e9e.");
+      afficherAccueil();
+    }
+
     function demanderSupprPerso(id) {
       var p = getProgrammePersoParId(id);
       if (!p) return;
@@ -2373,16 +2557,30 @@
       });
     }
 
+    var idProfilASupprimer = null;
+
     function supprimerProfil(index) {
-      if (confirm("Supprimer le profil de " + profils[index].nom + " ?")) {
-        profils.splice(index, 1);
-        localStorage.setItem("alinx_profils", JSON.stringify(profils));
-        afficherProfils();
-      }
+      idProfilASupprimer = index;
+      document.getElementById("suppr-profil-texte").textContent = "Le profil de " + profils[index].nom + " sera d\u00e9finitivement supprim\u00e9. Cette action est irr\u00e9versible.";
+      document.getElementById("modal-suppr-profil").classList.add("actif");
+    }
+
+    function fermerModalSupprProfil() {
+      document.getElementById("modal-suppr-profil").classList.remove("actif");
+      idProfilASupprimer = null;
+    }
+
+    function confirmerSupprProfil() {
+      if (idProfilASupprimer === null) return;
+      profils.splice(idProfilASupprimer, 1);
+      localStorage.setItem("alinx_profils", JSON.stringify(profils));
+      fermerModalSupprProfil();
+      afficherProfils();
     }
 
     function choisirProfil(profil) {
       profilActif = profil;
+      localStorage.setItem("alinx_dernier_profil", profil.nom);
       document.getElementById("ecran-profil").style.display = "none";
       document.getElementById("nav-bas").style.display = "flex";
       if (profil.theme === "obscur") {
@@ -2509,7 +2707,11 @@
         }
       }
 
-      if (programmeTermineInfo) {
+      if (cycleTermineInfo) {
+        var infoCycle = cycleTermineInfo;
+        cycleTermineInfo = null;
+        setTimeout(function() { ouvrirOverlayCycleTermine(infoCycle.nomFini, infoCycle.nomSuivant); }, 300);
+      } else if (programmeTermineInfo) {
         var infoTermine = programmeTermineInfo;
         programmeTermineInfo = null;
         setTimeout(function() { ouvrirModalFinProgramme(infoTermine); }, 300);
@@ -2534,6 +2736,8 @@
       if (ebt) ebt.classList.remove("actif");
       var ecp = document.getElementById("ecran-creation-prog");
       if (ecp) ecp.classList.remove("actif");
+      var epa = document.getElementById("ecran-parametres");
+      if (epa) epa.classList.remove("actif");
     }
 
     var calMoisActuel = new Date().getMonth();
@@ -3230,6 +3434,10 @@ function getDonneesExoParJour(nomExo) {
         afficherBoutique(boutiqueOngletActif);
         return;
       }
+      if (ecran === "parametres") {
+        afficherParametres();
+        return;
+      }
     }
 
     function allerVers(ecran) {
@@ -3315,6 +3523,7 @@ function getDonneesExoParJour(nomExo) {
     var ECLAIR_SVG = '<svg viewBox="0 0 24 40" xmlns="http://www.w3.org/2000/svg"><path d="M14 0 L2 22 L11 22 L8 40 L22 16 L13 16 Z" fill="#E24B4A"/></svg>';
 
     function jouerEffetCote(theme, callback) {
+      if (!profilActif) profilActif = { nom: prenomTemp };
       var overlay = document.getElementById("effet-transition-cote");
       var flash = document.getElementById("effet-flash");
       var contenu = document.getElementById("effet-contenu");
@@ -3433,17 +3642,287 @@ function getDonneesExoParJour(nomExo) {
         etat: etat,
         cycle: cycle,
         semaineCycle: semaineCycle,
-        nomCycle: cycleData.nom
+        nomCycle: cycleData.nom,
+        seanceId: seanceId
       };
     }
 
-    function convertirExercices(exercices) {
+    function texteAideType(type, extra) {
+      var textes = {
+        iso: "Maintiens chaque phase dans l'ordre indiqu\u00e9, sans rel\u00e2cher entre les phases.",
+        degressif: "Enchaîne les paliers dans l'ordre indiqu\u00e9, en r\u00e9duisant le poids \u00e0 chaque palier.",
+        cluster: "Alterne les mini-blocs de r\u00e9p\u00e9titions avec les courts temps de repos indiqu\u00e9s entre chaque bloc, sans lâcher la barre si possible.",
+        circuit: "Ench\u00e2ine les exercices dans l'ordre indiqu\u00e9 sans repos entre eux, puis prends le repos complet avant de recommencer le circuit.",
+        stress: "Ench\u00e2ine les s\u00e9ries dans l'ordre indiqu\u00e9, en augmentant puis en redescendant le poids lest\u00e9, sans repos entre les paliers.",
+        rapide: "Ex\u00e9cute cet ench\u00e2\u00eenement le plus rapidement possible, sans repos entre les paliers.",
+        intermittent: "Ench\u00e2ine les mini-s\u00e9ries indiqu\u00e9es avec seulement le tr\u00e8s court repos pr\u00e9cis\u00e9 entre chacune.",
+        pyramidePoids: "Monte progressivement en poids jusqu'\u00e0 ton maximum du jour, avec repos entre chaque palier, puis redescends en poids sans repos, en allant \u00e0 l'\u00e9chec sur chaque s\u00e9rie.",
+        pyramideClassique: "Ex\u00e9cute chaque palier de r\u00e9p\u00e9titions dans l'ordre indiqu\u00e9, avec repos entre chaque palier.",
+        volume: "Ench\u00e2ine tous les mouvements indiqu\u00e9s sans repos entre eux, puis prends le repos complet avant la s\u00e9rie suivante.",
+        progressif: "Augmente le nombre de r\u00e9p\u00e9titions \u00e0 chaque palier, avec la pause indiqu\u00e9e entre chaque tentative, puis termine par une tenue isom\u00e9trique maximale.",
+        montante: "Augmente les r\u00e9p\u00e9titions de chaque exercice \u00e0 chaque palier, puis fais le plus de paliers suppl\u00e9mentaires possible.",
+        emom: "Au d\u00e9but de chaque minute pendant " + (extra || "?") + " minutes, ex\u00e9cute l'ench\u00e2\u00eenement indiqu\u00e9, puis repose-toi sur le temps restant de la minute.",
+        emomTours: "Divise les minutes en plusieurs tours \u00e9gaux. Au d\u00e9but de chaque minute de chaque tour, tiens les temps indiqu\u00e9s pour ce tour.",
+        amrap: "Ench\u00e2ine cet ench\u00e2\u00eenement en boucle pendant " + (extra || "?") + " minutes, sans t'arr\u00eater. Note le nombre de tours complets r\u00e9alis\u00e9s \u00e0 la fin."
+      };
+      return textes[type] || null;
+    }
+
+    function parserIntermittent(nom) {
+      var m = nom.match(/(\d+)\s*\u00d7\s*(\d+)\s*([a-zA-Z\u00e9\u00e8\u00ea\u00e0]*)\s*\((\d+)''\s*repos\)/i);
+      if (!m) return null;
+      var label = m[3] ? m[3].trim() : "";
+      if (!label) {
+        if (nom.toLowerCase().indexOf("traction") !== -1) label = "tractions";
+        else if (nom.toLowerCase().indexOf("dips") !== -1) label = "dips";
+        else if (nom.toLowerCase().indexOf("pompe") !== -1) label = "pompes";
+        else label = "reps";
+      }
+      return { nbMiniSeries: parseInt(m[1]), reps: parseInt(m[2]), label: label, reposCourt: parseInt(m[4]) };
+    }
+
+    function parserVolume(nom) {
+      var m = nom.match(/\u2014\s*(.+)$/);
+      var segment = m ? m[1] : nom;
+      segment = segment.replace(/,?\s*ench\u00ee\u00een\u00e9\s*sans\s*repos/i, "");
+      var parties = segment.split("+").map(function(p) { return p.trim(); }).filter(function(p) { return p.length > 0; });
+      return parties.map(function(p) {
+        if (/^iso$/i.test(p)) return { label: "iso (s)", valeur: 0 };
+        var mm = p.match(/^(\d+)\s*(.*)$/);
+        return mm ? { label: mm[2].trim() || "reps", valeur: parseInt(mm[1]) } : { label: p, valeur: 0 };
+      });
+    }
+
+    function parserPyramideClassique(nom) {
+      var m = nom.match(/\u2014\s*([\d\/\s]+)/);
+      if (!m) return null;
+      var nombres = m[1].split("/").map(function(n) { return parseInt(n.trim()); }).filter(function(n) { return !isNaN(n); });
+      return nombres.length >= 2 ? nombres : null;
+    }
+
+    function parserPyramidePoids(nom) {
+      var m = nom.match(/\u2014\s*(.+)$/);
+      var segment = m ? m[1] : nom;
+      var parties = segment.split(/\u2192/).map(function(p) { return p.trim(); });
+      return parties.filter(function(p) { return !/descente/i.test(p); });
+    }
+
+    function labelPoidsPyramide(step) {
+      if (/^pdc$/i.test(step)) return "pdc";
+      return step.replace(",", ".") + "kg";
+    }
+
+    function parserEmomTours(nom) {
+      var mDuree = nom.match(/EMOM\s*(\d+)\s*min/i);
+      var duree = mDuree ? parseInt(mDuree[1]) : null;
+      var tokens = nom.split(/\u2014/).map(function(t) { return t.trim(); }).filter(function(t) { return t.length && !/^EMOM/i.test(t); });
+      var tours = [];
+      tokens.forEach(function(tok) {
+        var mTour = tok.match(/^Tour\s*(\d+)\s*:\s*(.+)$/i);
+        if (!mTour) return;
+        var contenu = mTour[2];
+        var holds = [];
+        var regexHold = /(\d+)''/g;
+        var hm;
+        while ((hm = regexHold.exec(contenu)) !== null) { holds.push(parseInt(hm[1])); }
+        var label = contenu.replace(/(\d+)''\s*\/?\s*/g, "").trim();
+        tours.push({ numero: parseInt(mTour[1]), holds: holds, label: label || "reps" });
+      });
+      return { duree: duree, tours: tours };
+    }
+
+    function parserAmrap(nom) {
+      var mDuree = nom.match(/AMRAP\s*(\d+)\s*min/i);
+      var duree = mDuree ? parseInt(mDuree[1]) : null;
+      var m = nom.match(/\u2014\s*(.+)$/);
+      var segment = m ? m[1] : nom;
+      var parties = segment.split("+").map(function(p) { return p.trim(); });
+      var mouvements = parties.map(function(p) {
+        var mmTemps = p.match(/^(\d+)''\s*(.*)$/);
+        if (mmTemps) return { label: mmTemps[2].trim() || "sec", valeur: parseInt(mmTemps[1]) };
+        var mmReps = p.match(/^(\d+)\s*(.*)$/);
+        if (mmReps) return { label: mmReps[2].trim() || "reps", valeur: parseInt(mmReps[1]) };
+        return null;
+      }).filter(function(x) { return x; });
+      return { duree: duree, mouvements: mouvements };
+    }
+
+    function parserEmom(nom) {
+      var mDuree = nom.match(/EMOM\s*(\d+)\s*min/i);
+      var duree = mDuree ? parseInt(mDuree[1]) : null;
+      var m = nom.match(/\u2014\s*(.+)$/);
+      var segment = m ? m[1] : nom;
+      var parties = segment.split("+").map(function(p) { return p.trim(); });
+      var mouvements = parties.map(function(p) {
+        var mmTemps = p.match(/^(\d+)''\s*(.*)$/);
+        if (mmTemps) return { label: mmTemps[2].trim() || "sec", valeur: parseInt(mmTemps[1]) };
+        var mmReps = p.match(/^(\d+)\s*(.*)$/);
+        if (mmReps) return { label: mmReps[2].trim() || "reps", valeur: parseInt(mmReps[1]) };
+        return null;
+      }).filter(function(x) { return x; });
+      return { duree: duree, mouvements: mouvements };
+    }
+
+    function parserIsoMultiPhases(nom) {
+      var poidsMatch = nom.match(/\+\s*(\d+(?:[.,]\d+)?)\s*kg\s*$/i);
+      var aPoids = !!poidsMatch;
+      var poidsInitial = poidsMatch ? parseFloat(poidsMatch[1].replace(",", ".")) : 0;
+      var basePart = poidsMatch ? nom.slice(0, poidsMatch.index) : nom;
+      var phases = [];
+      var regex = /(\d+)''\s*([^\/\+]+)/g;
+      var m;
+      while ((m = regex.exec(basePart)) !== null) {
+        phases.push({ label: m[2].trim(), valeur: parseInt(m[1]) });
+      }
+      return { phases: phases, poidsInitial: poidsInitial, aPoids: aPoids };
+    }
+
+    function parserCluster(nom) {
+      var m = nom.match(/\u2014\s*(.+?)\s*=/);
+      var segment = m ? m[1] : nom;
+      var parties = segment.split("/").map(function(p) { return p.trim(); });
+      return parties.map(function(p) {
+        var mmTemps = p.match(/^(\d+)''$/);
+        if (mmTemps) return { label: "s repos", valeur: parseInt(mmTemps[1]) };
+        var mmReps = p.match(/^(\d+)\s*MU$/i);
+        if (mmReps) return { label: "MU", valeur: parseInt(mmReps[1]) };
+        var mmNombre = p.match(/^(\d+)/);
+        return { label: "", valeur: mmNombre ? parseInt(mmNombre[1]) : 0 };
+      });
+    }
+
+    function parserRoutine(nom) {
+      var m = nom.match(/\u2014\s*(.+)$/);
+      var segment = m ? m[1] : nom;
+      var parties = segment.split("/").map(function(p) { return p.trim(); });
+      var resultat = [];
+      var explications = [];
+      parties.forEach(function(p) {
+        var poidsSegMatch = p.match(/\+\s*(\d+(?:[.,]\d+)?)\s*kg/i);
+        var poidsSeg = poidsSegMatch ? parseFloat(poidsSegMatch[1].replace(",", ".")) : null;
+        var sansPoids = poidsSegMatch ? p.slice(0, poidsSegMatch.index).trim() : p;
+
+        var mmEscalier = sansPoids.match(/^(\d+(?:-\d+){1,})\s*deadstop\s*(.*)$/i);
+        if (mmEscalier) {
+          var nombres = mmEscalier[1].split("-").map(function(n) { return parseInt(n); });
+          var total = nombres.reduce(function(s, n) { return s + n; }, 0);
+          var descriptionPos = mmEscalier[2].trim();
+          resultat.push({ label: "deadstop escalier (" + total + " reps)", valeur: total });
+          explications.push("Ex\u00e9cute " + nombres.join(", puis ") + " r\u00e9p\u00e9tition(s) d'affil\u00e9e, avec un arr\u00eat complet " + (descriptionPos || "bras tendus") + " entre chaque r\u00e9p\u00e9tition \u2014 soit " + total + " r\u00e9p\u00e9titions au total.");
+          if (poidsSeg !== null) resultat.push({ label: "kg", valeur: poidsSeg });
+          return;
+        }
+
+        if (/^max\b/i.test(sansPoids)) {
+          var labelMax = sansPoids.replace(/^max\s*/i, "").trim() || "reps";
+          resultat.push({ label: labelMax, valeur: 0 });
+        } else {
+          var mmTemps = sansPoids.match(/^(\d+)''\s*(.*)$/);
+          var mmReps = sansPoids.match(/^(\d+)\s*(.*)$/);
+          if (mmTemps) {
+            resultat.push({ label: mmTemps[2].trim() || "sec", valeur: parseInt(mmTemps[1]) });
+          } else if (mmReps) {
+            resultat.push({ label: mmReps[2].trim() || "reps", valeur: parseInt(mmReps[1]) });
+          }
+        }
+        if (poidsSeg !== null) {
+          resultat.push({ label: "kg", valeur: poidsSeg });
+        }
+      });
+      return { mouvements: resultat, aide: explications.length ? explications.join(" ") : null };
+    }
+
+    function parserSegmentsBruts(texte) {
+      var parties = texte.split("/").map(function(p) { return p.trim(); });
+      return parties.map(function(p) {
+        var mm = p.match(/^(\d+)\s*(.+)$/);
+        return mm ? { label: mm[2].trim(), valeur: parseInt(mm[1]) } : { label: p, valeur: 0 };
+      });
+    }
+
+    function parserCircuit(nom) {
+      var m = nom.match(/\u2014\s*(.+)$/);
+      var segment = m ? m[1] : nom;
+      var separateur = segment.indexOf("/") !== -1 ? "/" : "+";
+      var parties = segment.split(separateur).map(function(p) { return p.trim(); });
+      return parties.map(function(p) {
+        var mm = p.match(/^(\d+)\s*(.+)$/);
+        return mm ? { label: mm[2].trim(), valeur: parseInt(mm[1]) } : { label: p, valeur: 0 };
+      });
+    }
+
+    function parserPyramideMontante(nom) {
+      var m = nom.match(/\u2014\s*(.+)$/);
+      var segment = m ? m[1] : nom;
+      var etapes = segment.split(/\u2192/).map(function(s) { return s.trim(); });
+      var labelsMap = { tr: "tractions", dips: "dips", pu: "pompes" };
+      var lignes = [];
+      etapes.forEach(function(etape) {
+        if (/^max/i.test(etape)) return;
+        var parties = etape.split("/").map(function(p) { return p.trim(); });
+        var mouvements = parties.map(function(p) {
+          var mm = p.match(/^(\d+)\s*([a-zA-Z]+)/);
+          if (!mm) return null;
+          var abbrev = mm[2].toLowerCase();
+          return { label: labelsMap[abbrev] || abbrev, valeur: parseInt(mm[1]) };
+        }).filter(function(x) { return x; });
+        if (mouvements.length) lignes.push(mouvements);
+      });
+      return lignes;
+    }
+
+    function parserProgressif(nom) {
+      var m = nom.match(/\u2014\s*(.+)$/);
+      var segment = m ? m[1] : nom;
+      var parties = segment.split("/").map(function(p) { return p.trim(); });
+      var resultat = [];
+      var label = "reps";
+      var pauseVal = 5;
+      parties.forEach(function(p, idx) {
+        if (idx === 0) {
+          var mm = p.match(/^(\d+)\s+([a-z\u00e0\u00e2\u00e4\u00e9\u00e8\u00ea\u00eb\u00ee\u00ef\u00f4\u00f6\u00f9\u00fb\u00fc\u00e7]+)\s+(\d+)''\s*pause/i);
+          if (mm) {
+            label = mm[2];
+            pauseVal = parseInt(mm[3]);
+            resultat.push({ label: label, valeur: parseInt(mm[1]) });
+            resultat.push({ label: "s repos", valeur: pauseVal });
+            return;
+          }
+        }
+        if (/^max/i.test(p)) {
+          var suffix = p.replace(/^max\s*/i, "").trim();
+          resultat.push({ label: suffix || "iso", valeur: 0 });
+          return;
+        }
+        var num = parseInt(p);
+        if (!isNaN(num)) {
+          resultat.push({ label: label, valeur: num });
+          resultat.push({ label: "s repos", valeur: pauseVal });
+        }
+      });
+      return resultat;
+    }
+
+    function parserPaliersDegressif(nom) {
+      var m = nom.match(/\u2014\s*(.+)$/);
+      var segment = m ? m[1] : nom;
+      segment = segment.replace(/\s*=.*$/, "");
+      var paliers = segment.split("/").map(function(p) { return p.trim(); });
+      return paliers.map(function(p) {
+        var mm = p.match(/^(\d+)\s*(.*)$/);
+        var reps = mm ? parseInt(mm[1]) : 0;
+        var label = (mm && mm[2].trim()) ? mm[2].trim() : "reps";
+        return { label: label, valeur: reps };
+      });
+    }
+
+    function convertirExercices(exercices, progId) {
       return exercices.map(function(exo, i) {
 
         // ===== TYPE GROUPÉ (lignes/mouvements) =====
         if (exo.lignes) {
           var lignesConverties = exo.lignes.map(function(ligne, li) {
-            var cleLigne = "profil_" + profilActif.nom + "_ligne_" + exo.nom + "_" + li;
+            var cleLigne = "profil_" + profilActif.nom + "_ligne_" + progId + "_" + exo.nom + "_" + li;
             var sauvegarde = JSON.parse(localStorage.getItem(cleLigne) || "null");
             var mouvements = ligne.mouvements.map(function(m, mi) {
               var valeurDepart = m.valeur;
@@ -3457,26 +3936,441 @@ function getDonneesExoParJour(nomExo) {
             };
           });
           return {
+          id: "exo_" + i,
+          nom: exo.nom,
+          icone: "\uD83D\uDCAA",
+          typeGroupe: true,
+          lignes: lignesConverties,
+          note: exo.note || null
+        };
+      }
+
+      // ===== TYPE ISOM\u00c9TRIE MULTI-PHASES (d\u00e9tect\u00e9 depuis le texte du nom) =====
+      if (typeof exo.reps === "string" && exo.reps.indexOf("iso") !== -1) {
+        var infoIso = parserIsoMultiPhases(exo.nom);
+        if (infoIso.phases.length >= 2) {
+          var nbSeriesIso = exo.series || 1;
+          var reposIso = exo.repos || 90;
+          var lignesIso = [];
+          for (var si = 0; si < nbSeriesIso; si++) {
+            var cleLigneIso = "profil_" + profilActif.nom + "_ligne_" + progId + "_" + exo.nom + "_" + si;
+            var sauvegardeIso = JSON.parse(localStorage.getItem(cleLigneIso) || "null");
+            var mouvementsIso = infoIso.phases.map(function(p, pi) {
+              var valeurDepart = p.valeur;
+              if (sauvegardeIso && sauvegardeIso[pi] !== undefined) valeurDepart = sauvegardeIso[pi];
+              return { label: p.label, valeur: valeurDepart, valeurObjectif: p.valeur };
+            });
+            if (infoIso.aPoids) {
+              var poidsDepart = infoIso.poidsInitial;
+              if (sauvegardeIso && sauvegardeIso[mouvementsIso.length] !== undefined) poidsDepart = sauvegardeIso[mouvementsIso.length];
+              mouvementsIso.push({ label: "kg", valeur: poidsDepart, valeurObjectif: infoIso.poidsInitial });
+            }
+            lignesIso.push({ repos: reposIso, mouvements: mouvementsIso, validee: false });
+          }
+          return {
             id: "exo_" + i,
             nom: exo.nom,
             icone: "\uD83D\uDCAA",
             typeGroupe: true,
-            lignes: lignesConverties,
-            note: exo.note || null
+            labelUnite: "S\u00c9RIE",
+            lignes: lignesIso,
+            note: exo.note || texteAideType("iso")
           };
         }
+      }
 
-        // ===== TYPE SIMPLE (comme avant) =====
+      // ===== TYPE D\u00c9GRESSIF (paliers reps + poids d\u00e9tect\u00e9s depuis le texte du nom) =====
+      if (typeof exo.reps === "string" && exo.reps.toLowerCase().indexOf("gressif") !== -1) {
+        var paliersDeg = parserPaliersDegressif(exo.nom);
+        if (paliersDeg.length >= 2) {
+          var nbSeriesDeg = exo.series || 1;
+          var reposDeg = exo.repos || 90;
+          var lignesDeg = [];
+          for (var sd = 0; sd < nbSeriesDeg; sd++) {
+            var cleLigneDeg = "profil_" + profilActif.nom + "_ligne_" + progId + "_" + exo.nom + "_" + sd;
+            var sauvegardeDeg = JSON.parse(localStorage.getItem(cleLigneDeg) || "null");
+            var mouvementsDeg = paliersDeg.map(function(p, pi) {
+              var valeurDepart = p.valeur;
+              if (sauvegardeDeg && sauvegardeDeg[pi] !== undefined) valeurDepart = sauvegardeDeg[pi];
+              return { label: p.label, valeur: valeurDepart, valeurObjectif: p.valeur };
+            });
+            lignesDeg.push({ repos: reposDeg, mouvements: mouvementsDeg, validee: false });
+          }
+          return {
+            id: "exo_" + i,
+            nom: exo.nom,
+            icone: "\uD83D\uDCAA",
+            typeGroupe: true,
+            labelUnite: "S\u00c9RIE",
+            lignes: lignesDeg,
+            note: exo.note || texteAideType("degressif")
+          };
+        }
+      }
+
+      // ===== TYPE CLUSTER (mini-blocs reps/repos d\u00e9tect\u00e9s depuis le texte du nom) =====
+      if (typeof exo.reps === "string" && exo.reps.toLowerCase().indexOf("cluster") !== -1) {
+        var partiesCluster = parserCluster(exo.nom);
+        if (partiesCluster.length >= 2) {
+          var nbSeriesClu = exo.series || 1;
+          var reposClu = exo.repos || 90;
+          var lignesClu = [];
+          for (var sc = 0; sc < nbSeriesClu; sc++) {
+            var cleLigneClu = "profil_" + profilActif.nom + "_ligne_" + progId + "_" + exo.nom + "_" + sc;
+            var sauvegardeClu = JSON.parse(localStorage.getItem(cleLigneClu) || "null");
+            var mouvementsClu = partiesCluster.map(function(p, pi) {
+              var valeurDepart = p.valeur;
+              if (sauvegardeClu && sauvegardeClu[pi] !== undefined) valeurDepart = sauvegardeClu[pi];
+              return { label: p.label, valeur: valeurDepart, valeurObjectif: p.valeur };
+            });
+            lignesClu.push({ repos: reposClu, mouvements: mouvementsClu, validee: false });
+          }
+          return {
+            id: "exo_" + i,
+            nom: exo.nom,
+            icone: "\uD83D\uDCAA",
+            typeGroupe: true,
+            labelUnite: "S\u00c9RIE",
+            lignes: lignesClu,
+            note: exo.note || texteAideType("cluster")
+          };
+        }
+      }
+
+      // ===== TYPE CIRCUIT / TRI-SET (segments reps d\u00e9tect\u00e9s depuis le nom OU depuis le champ reps) =====
+      var repsLower = typeof exo.reps === "string" ? exo.reps.toLowerCase() : "";
+      var nomLower = exo.nom.toLowerCase();
+      var motCleCircuitDetecte = repsLower.indexOf("circuit") !== -1 || repsLower.indexOf("tri-set") !== -1 || repsLower.indexOf("bi-set") !== -1 || repsLower.indexOf("stress") !== -1 || repsLower === "set" || nomLower.indexOf("circuit") !== -1;
+      var repsContientSegments = typeof exo.reps === "string" && exo.reps.indexOf("/") !== -1 && /\d/.test(exo.reps);
+      if (motCleCircuitDetecte) {
+        var estStress = repsLower.indexOf("stress") !== -1;
+        var estRapide = repsLower === "set";
+        var partiesCircuit = repsContientSegments ? parserSegmentsBruts(exo.reps) : parserCircuit(exo.nom);
+        if (partiesCircuit.length >= 2) {
+          var nbSeriesCir = exo.series || 1;
+          var reposCir = exo.repos || 90;
+          var lignesCir = [];
+          for (var scir = 0; scir < nbSeriesCir; scir++) {
+            var cleLigneCir = "profil_" + profilActif.nom + "_ligne_" + progId + "_" + exo.nom + "_" + scir;
+            var sauvegardeCir = JSON.parse(localStorage.getItem(cleLigneCir) || "null");
+            var mouvementsCir = partiesCircuit.map(function(p, pi) {
+              var valeurDepart = p.valeur;
+              if (sauvegardeCir && sauvegardeCir[pi] !== undefined) valeurDepart = sauvegardeCir[pi];
+              return { label: p.label, valeur: valeurDepart, valeurObjectif: p.valeur };
+            });
+            lignesCir.push({ repos: reposCir, mouvements: mouvementsCir, validee: false });
+          }
+          return {
+            id: "exo_" + i,
+            nom: exo.nom,
+            icone: "\uD83D\uDCAA",
+            typeGroupe: true,
+            labelUnite: "S\u00c9RIE",
+            lignes: lignesCir,
+            note: exo.note || texteAideType(estStress ? "stress" : (estRapide ? "rapide" : "circuit"))
+          };
+        }
+      }
+
+      // ===== TYPE ROUTINE / FINISHER (segments mixtes reps/temps/poids d\u00e9tect\u00e9s depuis le texte du nom) =====
+      if (typeof exo.reps === "string" && (exo.reps.toLowerCase().indexOf("routine") !== -1 || exo.reps.toLowerCase().indexOf("finisher") !== -1)) {
+        var parseRout = parserRoutine(exo.nom);
+        var partiesRoutine = parseRout.mouvements;
+        if (partiesRoutine.length >= 2) {
+          var nbSeriesRout = exo.series || 1;
+          var reposRout = exo.repos || 90;
+          var lignesRout = [];
+          for (var sr = 0; sr < nbSeriesRout; sr++) {
+            var cleLigneRout = "profil_" + profilActif.nom + "_ligne_" + progId + "_" + exo.nom + "_" + sr;
+            var sauvegardeRout = JSON.parse(localStorage.getItem(cleLigneRout) || "null");
+            var mouvementsRout = partiesRoutine.map(function(p, pi) {
+              var valeurDepart = p.valeur;
+              if (sauvegardeRout && sauvegardeRout[pi] !== undefined) valeurDepart = sauvegardeRout[pi];
+              return { label: p.label, valeur: valeurDepart, valeurObjectif: p.valeur };
+            });
+            lignesRout.push({ repos: reposRout, mouvements: mouvementsRout, validee: false });
+          }
+          return {
+            id: "exo_" + i,
+            nom: exo.nom,
+            icone: "\uD83D\uDCAA",
+            typeGroupe: true,
+            labelUnite: "S\u00c9RIE",
+            lignes: lignesRout,
+            note: exo.note || parseRout.aide || null
+          };
+        }
+      }
+
+      // ===== TYPE PROGRESSIF (pyramide reps+pause d\u00e9tect\u00e9e depuis le texte du nom) =====
+      if (typeof exo.reps === "string" && exo.reps.toLowerCase().indexOf("progressive") !== -1) {
+        var partiesProg = parserProgressif(exo.nom);
+        if (partiesProg.length >= 2) {
+          var nbSeriesProg = exo.series || 1;
+          var reposProg = exo.repos || 90;
+          var lignesProg = [];
+          for (var sp = 0; sp < nbSeriesProg; sp++) {
+            var cleLigneProg = "profil_" + profilActif.nom + "_ligne_" + progId + "_" + exo.nom + "_" + sp;
+            var sauvegardeProg = JSON.parse(localStorage.getItem(cleLigneProg) || "null");
+            var mouvementsProg = partiesProg.map(function(p, pi) {
+              var valeurDepart = p.valeur;
+              if (sauvegardeProg && sauvegardeProg[pi] !== undefined) valeurDepart = sauvegardeProg[pi];
+              return { label: p.label, valeur: valeurDepart, valeurObjectif: p.valeur };
+            });
+            lignesProg.push({ repos: reposProg, mouvements: mouvementsProg, validee: false });
+          }
+          return {
+            id: "exo_" + i,
+            nom: exo.nom,
+            icone: "\uD83D\uDCAA",
+            typeGroupe: true,
+            labelUnite: "S\u00c9RIE",
+            lignes: lignesProg,
+            note: exo.note || texteAideType("progressif")
+          };
+        }
+      }
+
+      // ===== TYPE PYRAMIDE MONTANTE (paliers fixes + palier libre, d\u00e9tect\u00e9s depuis le texte du nom) =====
+      if (typeof exo.reps === "string" && exo.reps.toLowerCase().indexOf("montante") !== -1) {
+        var etapesMontante = parserPyramideMontante(exo.nom);
+        if (etapesMontante.length >= 1) {
+          var reposMontante = exo.repos || 90;
+          var lignesMontante = etapesMontante.map(function(mouvementsEtape, li) {
+            var cleLigneMont = "profil_" + profilActif.nom + "_ligne_" + progId + "_" + exo.nom + "_" + li;
+            var sauvegardeMont = JSON.parse(localStorage.getItem(cleLigneMont) || "null");
+            var mvts = mouvementsEtape.map(function(mv, pi) {
+              var val = mv.valeur;
+              if (sauvegardeMont && sauvegardeMont[pi] !== undefined) val = sauvegardeMont[pi];
+              return { label: mv.label, valeur: val, valeurObjectif: mv.valeur };
+            });
+            return { repos: reposMontante, mouvements: mvts, validee: false };
+          });
+          var indexFinalMont = lignesMontante.length;
+          var cleLigneFinalMont = "profil_" + profilActif.nom + "_ligne_" + progId + "_" + exo.nom + "_" + indexFinalMont;
+          var sauvegardeFinalMont = JSON.parse(localStorage.getItem(cleLigneFinalMont) || "null");
+          var valFinalMont = (sauvegardeFinalMont && sauvegardeFinalMont[0] !== undefined) ? sauvegardeFinalMont[0] : 0;
+          lignesMontante.push({ repos: 0, mouvements: [{ label: "palier(s) suppl\u00e9mentaire(s)", valeur: valFinalMont, valeurObjectif: 0 }], validee: false });
+          return {
+            id: "exo_" + i,
+            nom: exo.nom,
+            icone: "\uD83D\uDCAA",
+            typeGroupe: true,
+            lignes: lignesMontante,
+            note: exo.note || texteAideType("montante")
+          };
+        }
+      }
+
+      // ===== TYPE EMOM MULTI-TOURS (plusieurs mini-programmes distincts dans le m\u00eame EMOM) =====
+      if (((typeof exo.reps === "string" && exo.reps.toLowerCase().indexOf("emom") !== -1) || exo.nom.toLowerCase().indexOf("emom") !== -1) && exo.nom.indexOf("Tour") !== -1) {
+        var infoToursEmom = parserEmomTours(exo.nom);
+        if (infoToursEmom.tours.length >= 2) {
+          var lignesToursEmom = infoToursEmom.tours.map(function(tour, ti) {
+            var cleLigneTour = "profil_" + profilActif.nom + "_ligne_" + progId + "_" + exo.nom + "_" + ti;
+            var sauvegardeTour = JSON.parse(localStorage.getItem(cleLigneTour) || "null");
+            var mvts = tour.holds.map(function(h, hi) {
+              var val = h;
+              if (sauvegardeTour && sauvegardeTour[hi] !== undefined) val = sauvegardeTour[hi];
+              return { label: tour.label + " (s)", valeur: val, valeurObjectif: h };
+            });
+            return { repos: 0, mouvements: mvts, validee: false };
+          });
+          return {
+            id: "exo_" + i,
+            nom: exo.nom,
+            icone: "\uD83D\uDCAA",
+            typeGroupe: true,
+            labelUnite: "TOUR",
+            lignes: lignesToursEmom,
+            note: exo.note || texteAideType("emomTours")
+          };
+        }
+      }
+
+      // ===== TYPE EMOM (r\u00e9p\u00e9t\u00e9 chaque minute pendant X minutes, d\u00e9tect\u00e9 depuis le texte du nom) =====
+      if ((typeof exo.reps === "string" && exo.reps.toLowerCase().indexOf("emom") !== -1) || exo.nom.toLowerCase().indexOf("emom") !== -1) {
+        var infoEmom = parserEmom(exo.nom);
+        if (infoEmom.mouvements.length >= 1) {
+          var nbTours = infoEmom.duree || exo.series || 1;
+          var lignesEmom = [];
+          for (var se = 0; se < nbTours; se++) {
+            var cleLigneEmom = "profil_" + profilActif.nom + "_ligne_" + progId + "_" + exo.nom + "_" + se;
+            var sauvegardeEmom = JSON.parse(localStorage.getItem(cleLigneEmom) || "null");
+            var mouvementsEmom = infoEmom.mouvements.map(function(mv, pi) {
+              var val = mv.valeur;
+              if (sauvegardeEmom && sauvegardeEmom[pi] !== undefined) val = sauvegardeEmom[pi];
+              return { label: mv.label, valeur: val, valeurObjectif: mv.valeur };
+            });
+            lignesEmom.push({ repos: 0, mouvements: mouvementsEmom, validee: false });
+          }
+          return {
+            id: "exo_" + i,
+            nom: exo.nom,
+            icone: "\uD83D\uDCAA",
+            typeGroupe: true,
+            labelUnite: "MINUTE",
+            lignes: lignesEmom,
+            note: exo.note || texteAideType("emom", infoEmom.duree)
+          };
+        }
+      }
+
+      // ===== TYPE AMRAP (ench\u00e2\u00eenement en boucle + compteur de tours, d\u00e9tect\u00e9 depuis le texte du nom) =====
+      if ((typeof exo.reps === "string" && exo.reps.toLowerCase().indexOf("amrap") !== -1) || exo.nom.toLowerCase().indexOf("amrap") !== -1) {
+        var infoAmrap = parserAmrap(exo.nom);
+        if (infoAmrap.mouvements.length >= 1) {
+          var cleLigneAmrap = "profil_" + profilActif.nom + "_ligne_" + progId + "_" + exo.nom + "_0";
+          var sauvegardeAmrap = JSON.parse(localStorage.getItem(cleLigneAmrap) || "null");
+          var mouvementsAmrap = infoAmrap.mouvements.map(function(mv, pi) {
+            var val = mv.valeur;
+            if (sauvegardeAmrap && sauvegardeAmrap[pi] !== undefined) val = sauvegardeAmrap[pi];
+            return { label: mv.label, valeur: val, valeurObjectif: mv.valeur };
+          });
+          var indexToursAmrap = mouvementsAmrap.length;
+          var valToursAmrap = (sauvegardeAmrap && sauvegardeAmrap[indexToursAmrap] !== undefined) ? sauvegardeAmrap[indexToursAmrap] : 0;
+          mouvementsAmrap.push({ label: "tours compl\u00e9t\u00e9s", valeur: valToursAmrap, valeurObjectif: 0 });
+          return {
+            id: "exo_" + i,
+            nom: exo.nom,
+            icone: "\uD83D\uDCAA",
+            typeGroupe: true,
+            lignes: [{ repos: 0, mouvements: mouvementsAmrap, validee: false }],
+            note: exo.note || texteAideType("amrap", infoAmrap.duree)
+          };
+        }
+      }
+
+      // ===== TYPE INTERMITTENT (mini-s\u00e9ries r\u00e9p\u00e9t\u00e9es avec micro-repos, d\u00e9tect\u00e9 depuis le texte du nom) =====
+      if (typeof exo.reps === "string" && exo.reps.toLowerCase().indexOf("intermittent") !== -1) {
+        var infoInter = parserIntermittent(exo.nom);
+        if (infoInter) {
+          var lignesInter = [];
+          for (var sit = 0; sit < infoInter.nbMiniSeries; sit++) {
+            var cleLigneInter = "profil_" + profilActif.nom + "_ligne_" + progId + "_" + exo.nom + "_" + sit;
+            var sauvegardeInter = JSON.parse(localStorage.getItem(cleLigneInter) || "null");
+            var valDepartInter = (sauvegardeInter && sauvegardeInter[0] !== undefined) ? sauvegardeInter[0] : infoInter.reps;
+            var reposLigneInter = sit < infoInter.nbMiniSeries - 1 ? infoInter.reposCourt : (exo.repos || 0);
+            lignesInter.push({ repos: reposLigneInter, mouvements: [{ label: infoInter.label, valeur: valDepartInter, valeurObjectif: infoInter.reps }], validee: false });
+          }
+          return {
+            id: "exo_" + i,
+            nom: exo.nom,
+            icone: "\uD83D\uDCAA",
+            typeGroupe: true,
+            labelUnite: "S\u00c9RIE",
+            lignes: lignesInter,
+            note: exo.note || texteAideType("intermittent")
+          };
+        }
+      }
+
+      // ===== TYPE VOLUME (ench\u00e2\u00eenement r\u00e9p\u00e9t\u00e9 plusieurs fois, d\u00e9tect\u00e9 depuis le texte du nom) =====
+      if (typeof exo.reps === "string" && exo.reps.toLowerCase() === "volume") {
+        var partiesVol = parserVolume(exo.nom);
+        if (partiesVol.length >= 2) {
+          var nbSeriesVol = exo.series || 1;
+          var reposVol = exo.repos || 90;
+          var lignesVol = [];
+          for (var svo = 0; svo < nbSeriesVol; svo++) {
+            var cleLigneVol = "profil_" + profilActif.nom + "_ligne_" + progId + "_" + exo.nom + "_" + svo;
+            var sauvegardeVol = JSON.parse(localStorage.getItem(cleLigneVol) || "null");
+            var mouvementsVol = partiesVol.map(function(p, pi) {
+              var val = p.valeur;
+              if (sauvegardeVol && sauvegardeVol[pi] !== undefined) val = sauvegardeVol[pi];
+              return { label: p.label, valeur: val, valeurObjectif: p.valeur };
+            });
+            lignesVol.push({ repos: reposVol, mouvements: mouvementsVol, validee: false });
+          }
+          return {
+            id: "exo_" + i,
+            nom: exo.nom,
+            icone: "\uD83D\uDCAA",
+            typeGroupe: true,
+            labelUnite: "S\u00c9RIE",
+            lignes: lignesVol,
+            note: exo.note || texteAideType("volume")
+          };
+        }
+      }
+
+      // ===== TYPE PYRAMIDE CLASSIQUE (paliers de r\u00e9p\u00e9titions simples, d\u00e9tect\u00e9e depuis le texte du nom) =====
+      if (typeof exo.reps === "string" && exo.reps.toLowerCase() === "pyramide" && exo.nom.indexOf("\u2192") === -1) {
+        var nombresPyrC = parserPyramideClassique(exo.nom);
+        if (nombresPyrC) {
+          var reposPyrC = exo.repos || 90;
+          var lignesPyrC = nombresPyrC.map(function(n, idx) {
+            var cleLignePyrC = "profil_" + profilActif.nom + "_ligne_" + progId + "_" + exo.nom + "_" + idx;
+            var sauvegardePyrC = JSON.parse(localStorage.getItem(cleLignePyrC) || "null");
+            var val = (sauvegardePyrC && sauvegardePyrC[0] !== undefined) ? sauvegardePyrC[0] : n;
+            return { repos: reposPyrC, mouvements: [{ label: "reps", valeur: val, valeurObjectif: n }], validee: false };
+          });
+          return {
+            id: "exo_" + i,
+            nom: exo.nom,
+            icone: "\uD83D\uDCAA",
+            typeGroupe: true,
+            labelUnite: "PALIER",
+            lignes: lignesPyrC,
+            note: exo.note || texteAideType("pyramideClassique")
+          };
+        }
+      }
+
+      // ===== TYPE PYRAMIDE DE POIDS (mont\u00e9e progressive + descente encha\u00een\u00e9e, d\u00e9tect\u00e9e depuis le texte du nom) =====
+      if (typeof exo.reps === "string" && exo.reps.toLowerCase() === "pyramide" && exo.nom.indexOf("\u2192") !== -1) {
+        var stepsPyr = parserPyramidePoids(exo.nom);
+        if (stepsPyr.length >= 2) {
+          var reposPyr = exo.repos || 90;
+          var lignesPyr = [];
+          stepsPyr.forEach(function(step, idx) {
+            var cleLignePyr = "profil_" + profilActif.nom + "_ligne_" + progId + "_" + exo.nom + "_asc_" + idx;
+            var sauvegardePyr = JSON.parse(localStorage.getItem(cleLignePyr) || "null");
+            if (/^max$/i.test(step)) {
+              var valKg = (sauvegardePyr && sauvegardePyr[0] !== undefined) ? sauvegardePyr[0] : 0;
+              var valRepsMax = (sauvegardePyr && sauvegardePyr[1] !== undefined) ? sauvegardePyr[1] : 0;
+              lignesPyr.push({ repos: reposPyr, mouvements: [{ label: "kg (max)", valeur: valKg, valeurObjectif: 0 }, { label: "reps", valeur: valRepsMax, valeurObjectif: 0 }], validee: false });
+            } else {
+              var valReps2 = (sauvegardePyr && sauvegardePyr[0] !== undefined) ? sauvegardePyr[0] : 0;
+              lignesPyr.push({ repos: reposPyr, mouvements: [{ label: labelPoidsPyramide(step), valeur: valReps2, valeurObjectif: 0 }], validee: false });
+            }
+          });
+          var descSteps = stepsPyr.slice(0, stepsPyr.length - 1).reverse();
+          descSteps.forEach(function(step, idx) {
+            var cleLigneDes = "profil_" + profilActif.nom + "_ligne_" + progId + "_" + exo.nom + "_desc_" + idx;
+            var sauvegardeDes = JSON.parse(localStorage.getItem(cleLigneDes) || "null");
+            var valRepsD = (sauvegardeDes && sauvegardeDes[0] !== undefined) ? sauvegardeDes[0] : 0;
+            lignesPyr.push({ repos: 0, mouvements: [{ label: labelPoidsPyramide(step), valeur: valRepsD, valeurObjectif: 0 }], validee: false });
+          });
+          return {
+            id: "exo_" + i,
+            nom: exo.nom,
+            icone: "\uD83D\uDCAA",
+            typeGroupe: true,
+            lignes: lignesPyr,
+            note: exo.note || texteAideType("pyramidePoids")
+          };
+        }
+      }
+
+      // ===== TYPE SIMPLE (comme avant) =====
         var repos = exo.repos || 90;
         var repsVal = exo.reps;
-        var poidsKey = "profil_" + profilActif.nom + "_poids_" + exo.nom;
-        var dernierPoids = parseFloat(localStorage.getItem(poidsKey) || "0");
+        var poidsKey = "profil_" + profilActif.nom + "_poids_" + progId + "_" + exo.nom;
+        var poidsDansNom = 0;
+        var matchPoidsNom = exo.nom.match(/\+\s*(\d+(?:[,.]\d+)?)\s*kg/i);
+        if (matchPoidsNom) poidsDansNom = parseFloat(matchPoidsNom[1].replace(",", "."));
+        var dernierPoids = parseFloat(localStorage.getItem(poidsKey) || poidsDansNom || "0");
         var estTemps = (typeof repsVal === "string" && (
           repsVal.indexOf("temps") !== -1 ||
           repsVal.indexOf("iso") !== -1 ||
-          repsVal.indexOf("''") !== -1
+          repsVal.indexOf("''") !== -1 ||
+          repsVal.indexOf("tentative") !== -1 ||
+          /^\d+\s*s$/i.test(repsVal.trim())
         ));
         var estMax = (typeof repsVal === "string" && repsVal.indexOf("max") !== -1);
+        var estMaxTemps = estTemps && estMax;
+        var estMaxReps = estMax && !estTemps;
         var series = [];
         if (typeof repsVal === "string" && repsVal.indexOf("/") !== -1) {
           var partiesPyramide = repsVal.split("=")[0];
@@ -3511,7 +4405,9 @@ function getDonneesExoParJour(nomExo) {
           nom: exo.nom,
           icone: "\uD83D\uDCAA",
           series: series,
-          note: exo.note || null
+          note: exo.note || null,
+          estMaxTemps: estMaxTemps,
+          estMaxReps: estMaxReps
         };
       });
     }
@@ -3537,7 +4433,8 @@ function getDonneesExoParJour(nomExo) {
         etat: actif.etat,
         cycle: cycle,
         semaineCycle: semaine,
-        nomCycle: cycleData.nom
+        nomCycle: cycleData.nom,
+        seanceId: "s1"
       };
     }
 
@@ -3569,7 +4466,25 @@ function getDonneesExoParJour(nomExo) {
       }).join("");
     }
 
+    function genererApercuGroupe(exo) {
+      return exo.lignes.map(function(ligne, i) {
+        var detail = ligne.mouvements.map(function(m) { return m.valeur + " " + m.label; }).join(" \u00b7 ");
+        return '<div class="exo-preview-ligne"><b>L' + (i + 1) + '</b>' + detail + '</div>';
+      }).join("");
+    }
+
     function genererCarteExo(exo) {
+      if (exo.lignes) {
+        var reposLigne = exo.lignes[0] ? exo.lignes[0].repos : null;
+        var reposText = reposLigne > 0 ? reposLigne + "s repos entre lignes" : "encha\u00een\u00e9";
+        var lignesText = exo.lignes.length + (exo.lignes.length > 1 ? " lignes" : " ligne");
+        return '<div class="exo-preview">' +
+          '<div class="exo-preview-nom">' + exo.nom + '</div>' +
+          '<div class="exo-preview-meta">' + lignesText + ' \u00b7 \u23F1 ' + reposText + '</div>' +
+          '<div class="exo-preview-lignes">' + genererApercuGroupe(exo) + '</div>' +
+          (exo.note ? '<div class="exo-preview-note">' + exo.note + '</div>' : '') +
+        '</div>';
+      }
       var reposText = exo.repos > 0 ? exo.repos + "s repos" : "encha\u00een\u00e9";
       var seriesText = exo.series > 1 ? exo.series + " s\u00e9ries" : "1 s\u00e9rie";
       return '<div class="exo-preview">' +
@@ -3603,6 +4518,7 @@ function getDonneesExoParJour(nomExo) {
       document.getElementById("btn-terminer").classList.remove("visible");
       var liste = document.getElementById("exercices-liste");
       liste.style.display = "flex";
+      liste.style.paddingTop = "0";
       liste.innerHTML = "";
       s.exercices.forEach(function(exo) {
         var div = document.createElement("div");
@@ -3610,6 +4526,9 @@ function getDonneesExoParJour(nomExo) {
         liste.appendChild(div.firstChild);
       });
       if (!modeRepos) {
+        var espaceur = document.createElement("div");
+        espaceur.style.height = "90px";
+        liste.appendChild(espaceur);
         var btnLancer = document.createElement("button");
         btnLancer.className = "btn-terminer-seance visible";
         btnLancer.textContent = "LANCER LA S\u00c9ANCE";
@@ -3620,13 +4539,22 @@ function getDonneesExoParJour(nomExo) {
 
     function demarrerSeanceReelle(info) {
       var s = info.seanceData;
+      var progIdActuel;
+      if (info.estPerso) {
+        progIdActuel = info.progId || (info.prog && info.prog.id) || "defaut";
+      } else if (info.prog && info.prog.id) {
+        progIdActuel = info.prog.id + "_" + (info.cycle || "c1") + "_" + (info.semaineCycle || 1) + "_" + (info.seanceId || "s1");
+      } else {
+        progIdActuel = "defaut";
+      }
       var sonEquipeId = getEquipe("sons");
       var sonItem = BOUTIQUE_CATALOGUE.sons.items.filter(function(i) { return i.id === sonEquipeId; })[0];
       jouerSonSabre(sonItem ? sonItem.type : "classique");
       seanceEnCours = {
         nom: s.nom,
         sous: info.nomCycle + " \u2014 Semaine " + info.semaineCycle,
-        exercices: convertirExercices(s.exercices),
+        progId: progIdActuel,
+        exercices: convertirExercices(s.exercices, progIdActuel),
         seriesValidees: 0,
         repsTotal: 0,
         exoOuvert: 0,
@@ -3636,6 +4564,7 @@ function getDonneesExoParJour(nomExo) {
       document.getElementById("seance-sous").textContent = seanceEnCours.sous;
       document.getElementById("seance-chrono").textContent = "00:00";
       document.getElementById("exercices-liste").style.display = "none";
+      document.getElementById("exercices-liste").style.paddingTop = "0";
       document.getElementById("exercices-liste").innerHTML = "";
       document.getElementById("btn-terminer").classList.remove("visible");
       document.getElementById("bloc-mood").style.display = "block";
@@ -3691,6 +4620,7 @@ function getDonneesExoParJour(nomExo) {
       document.getElementById("bloc-mood").style.display = "none";
       document.getElementById("bloc-timer").style.display = "flex";
       document.getElementById("exercices-liste").style.display = "flex";
+      document.getElementById("exercices-liste").style.paddingTop = "140px";
       document.getElementById("btn-terminer").classList.add("visible");
       afficherExercices();
     }
@@ -3698,12 +4628,12 @@ function getDonneesExoParJour(nomExo) {
     function getDernierePerf(exo) {
       if (exo.typeGroupe) {
         var toutesLesLignesSauvees = exo.lignes.every(function(l, li) {
-          return localStorage.getItem("profil_" + profilActif.nom + "_ligne_" + exo.nom + "_" + li) !== null;
+          return localStorage.getItem("profil_" + profilActif.nom + "_ligne_" + seanceEnCours.progId + "_" + exo.nom + "_" + li) !== null;
         });
         if (!toutesLesLignesSauvees) return "Derni\u00e8re fois : \u2014";
         return "Derni\u00e8re fois : valeurs pr\u00e9c\u00e9dentes restaur\u00e9es";
       }
-      var resultatKey = "profil_" + profilActif.nom + "_last_" + exo.nom;
+      var resultatKey = "profil_" + profilActif.nom + "_last_" + seanceEnCours.progId + "_" + exo.nom;
       var resultats = JSON.parse(localStorage.getItem(resultatKey) || "[]");
       if (!resultats.length) return "Derni\u00e8re fois : \u2014";
       var texte = resultats.filter(function(r) { return r; }).map(function(r, i) {
@@ -3736,10 +4666,11 @@ function getDonneesExoParJour(nomExo) {
         var toutesValidees = seriesRestantes === 0;
         if (toutesValidees) bloc.classList.add("termine");
         var coche = toutesValidees ? "\u2705" : (exoIndex === seanceEnCours.exoOuvert ? "\uD83D\uDD04" : "\u25CB");
-        var statutText = toutesValidees ? "Termin\u00e9" : (exoIndex === seanceEnCours.exoOuvert ? "En cours" : nbUnites + (exo.typeGroupe ? " lignes" : " s\u00e9ries"));
+        var motUnitePlur = exo.labelUnite ? (exo.labelUnite === "S\u00c9RIE" ? "s\u00e9ries" : "lignes") : "lignes";
+        var statutText = toutesValidees ? "Termin\u00e9" : (exoIndex === seanceEnCours.exoOuvert ? "En cours" : nbUnites + (exo.typeGroupe ? " " + motUnitePlur : " s\u00e9ries"));
         var reposRappel = "";
         if (exo.typeGroupe && exo.lignes && exo.lignes.length) {
-          reposRappel = "\u23F1 " + formatRepos(exo.lignes[0].repos) + " entre chaque ligne";
+          reposRappel = "\u23F1 " + formatRepos(exo.lignes[0].repos) + " entre chaque " + (exo.labelUnite === "S\u00c9RIE" ? "s\u00e9rie" : "ligne");
         } else if (exo.series && exo.series.length) {
           reposRappel = "\u23F1 " + formatRepos(exo.series[0].repos) + " entre s\u00e9ries";
         }
@@ -3754,10 +4685,16 @@ function getDonneesExoParJour(nomExo) {
         '</div>' +
         '<div class="exo-contenu' + (exoIndex === seanceEnCours.exoOuvert ? " visible" : "") + '" id="exo-contenu-' + exoIndex + '">' +
           '<div class="exo-semaine-prec">' + getDernierePerf(exo) + '</div>' +
+          (exo.estMaxTemps ? '<div class="exo-max-temps-badge">\u23F1 MAX TEMPS \u2014 tiens le plus longtemps possible</div>' : '') +
+          (exo.estMaxReps ? '<div class="exo-max-temps-badge">\uD83D\uDCAA MAX REPS \u2014 fais le maximum de r\u00e9p\u00e9titions</div>' : '') +
+          (exo.note ? '<div class="exo-note-rappel">' + exo.note + '</div>' : '') +
           (exo.typeGroupe ? genererLignesGroupe(exo, exoIndex) : genererSeries(exo, exoIndex)) +
         '</div>';
         liste.appendChild(bloc);
       });
+      var espaceurBas = document.createElement("div");
+      espaceurBas.style.height = "100px";
+      liste.appendChild(espaceurBas);
     }
 
     function genererSeries(exo, exoIndex) {
@@ -3796,9 +4733,10 @@ function getDonneesExoParJour(nomExo) {
 
     function genererLignesGroupe(exo, exoIndex) {
       var html = "";
+      var labelUnite = exo.labelUnite || "LIGNE";
       exo.lignes.forEach(function(ligne, ligneIndex) {
         html += '<div class="serie-bloc' + (ligne.validee ? " validee" : "") + '" id="ligne-' + exoIndex + '-' + ligneIndex + '">';
-        html += '<div class="serie-titre">LIGNE ' + (ligneIndex + 1) + '</div>';
+        html += '<div class="serie-titre">' + labelUnite + ' ' + (ligneIndex + 1) + '</div>';
         html += '<div class="serie-controls">';
         ligne.mouvements.forEach(function(mvt, mvtIndex) {
           html += '<div class="serie-compteur">' +
@@ -3817,7 +4755,10 @@ function getDonneesExoParJour(nomExo) {
 
     function ajusterMouvement(exoIndex, ligneIndex, mvtIndex, delta) {
       var mvt = seanceEnCours.exercices[exoIndex].lignes[ligneIndex].mouvements[mvtIndex];
-      mvt.valeur = Math.max(0, mvt.valeur + delta);
+      var labelLower = mvt.label.toLowerCase();
+      var estSecondes = labelLower.indexOf("sec") !== -1 || labelLower.indexOf("''") !== -1 || / s$/.test(labelLower) || labelLower === "s repos";
+      var pas = estSecondes ? 5 : 1;
+      mvt.valeur = Math.max(0, mvt.valeur + delta * pas);
       document.getElementById("val-mvt-" + exoIndex + "-" + ligneIndex + "-" + mvtIndex).textContent = mvt.valeur;
     }
 
@@ -3827,10 +4768,10 @@ function getDonneesExoParJour(nomExo) {
       if (ligne.validee) return;
       ligne.validee = true;
       seanceEnCours.seriesValidees++;
-      var totalReps = ligne.mouvements.reduce(function(sum, m) { return sum + m.valeur; }, 0);
+      var totalReps = ligne.mouvements.filter(function(m) { return m.label !== "kg"; }).reduce(function(sum, m) { return sum + m.valeur; }, 0);
       seanceEnCours.repsTotal += totalReps;
       // Sauvegarder les valeurs de cette ligne pour la prochaine fois
-      var cleLigne = "profil_" + profilActif.nom + "_ligne_" + exo.nom + "_" + ligneIndex;
+      var cleLigne = "profil_" + profilActif.nom + "_ligne_" + seanceEnCours.progId + "_" + exo.nom + "_" + ligneIndex;
       var valeurs = ligne.mouvements.map(function(m) { return m.valeur; });
       localStorage.setItem(cleLigne, JSON.stringify(valeurs));
       var blocligne = document.getElementById("ligne-" + exoIndex + "-" + ligneIndex);
@@ -3844,6 +4785,7 @@ function getDonneesExoParJour(nomExo) {
         }
       }
       afficherExercices();
+      scrollVersExoOuvert(exoIndex);
     }
 
     function toggleExo(index) {
@@ -3875,10 +4817,10 @@ function getDonneesExoParJour(nomExo) {
       seanceEnCours.repsTotal += serie.reps;
       // Sauvegarder poids pour la prochaine fois
       if (serie.poids > 0) {
-        localStorage.setItem("profil_" + profilActif.nom + "_poids_" + exo.nom, serie.poids);
+        localStorage.setItem("profil_" + profilActif.nom + "_poids_" + seanceEnCours.progId + "_" + exo.nom, serie.poids);
       }
       // Sauvegarder résultats pour affichage futur
-      var resultatKey = "profil_" + profilActif.nom + "_last_" + exo.nom;
+      var resultatKey = "profil_" + profilActif.nom + "_last_" + seanceEnCours.progId + "_" + exo.nom;
       var resultats = JSON.parse(localStorage.getItem(resultatKey) || "[]");
       resultats[serieIndex] = { reps: serie.reps, poids: serie.poids };
       localStorage.setItem(resultatKey, JSON.stringify(resultats));
@@ -3893,6 +4835,26 @@ function getDonneesExoParJour(nomExo) {
         }
       }
       afficherExercices();
+      scrollVersExoOuvert(exoIndex);
+    }
+
+    function scrollVersExoOuvert(exoIndexAvant) {
+      setTimeout(function() {
+        var exoActuel = seanceEnCours.exoOuvert;
+        var elCible = null;
+        if (exoActuel === exoIndexAvant) {
+          var exo = seanceEnCours.exercices[exoActuel];
+          if (exo.typeGroupe) {
+            var idxLigne = exo.lignes.findIndex(function(l) { return !l.validee; });
+            if (idxLigne !== -1) elCible = document.getElementById("ligne-" + exoActuel + "-" + idxLigne);
+          } else {
+            var idxSerie = exo.series.findIndex(function(s) { return !s.validee; });
+            if (idxSerie !== -1) elCible = document.getElementById("serie-" + exoActuel + "-" + idxSerie);
+          }
+        }
+        if (!elCible) elCible = document.getElementById("exo-" + exoActuel);
+        if (elCible) elCible.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 150);
     }
 
     function lancerTimer(secondes) {
@@ -3981,7 +4943,13 @@ function getDonneesExoParJour(nomExo) {
         if (exo.typeGroupe) {
           exo.lignes.forEach(function(ligne) {
             if (!ligne.validee) return;
-            total += ligne.mouvements.reduce(function(sum, m) { return sum + (m.valeur || 0); }, 0);
+            ligne.mouvements.forEach(function(m) {
+              if (m.label === "kg") {
+                if ((m.valeur || 0) > poidsMax) poidsMax = m.valeur;
+              } else {
+                total += m.valeur || 0;
+              }
+            });
           });
         } else {
           exo.series.forEach(function(serie) {
@@ -4065,6 +5033,7 @@ function getDonneesExoParJour(nomExo) {
     }
 
     function jouerSonBadge() {
+      if (!sonActif()) return;
       try {
         var ctx = new (window.AudioContext || window.webkitAudioContext)();
         [392, 523.25, 659.25].forEach(function(freq, i) {
@@ -4181,8 +5150,24 @@ function getDonneesExoParJour(nomExo) {
         return e.series.some(function(s) { return !s.validee; });
       }).length;
       if (exosNonFinis > 0) {
-        if (!confirm("Il te reste " + exosNonFinis + " exercice(s), tu es s\u00fbr ?")) return;
+        var texte = "Il te reste " + exosNonFinis + " exercice" + (exosNonFinis > 1 ? "s" : "") + " non termin\u00e9" + (exosNonFinis > 1 ? "s" : "") + ". Tu es s\u00fbr de vouloir terminer la s\u00e9ance ?";
+        document.getElementById("seance-incomplete-texte").textContent = texte;
+        document.getElementById("modal-seance-incomplete").classList.add("actif");
+        return;
       }
+      afficherEcranFinSeance();
+    }
+
+    function fermerModalSeanceIncomplete() {
+      document.getElementById("modal-seance-incomplete").classList.remove("actif");
+    }
+
+    function confirmerFinSeanceIncomplete() {
+      fermerModalSeanceIncomplete();
+      afficherEcranFinSeance();
+    }
+
+    function afficherEcranFinSeance() {
       clearInterval(chronoInterval);
       var dureeMin = Math.floor(chronoSecondes / 60);
       document.getElementById("fin-duree").textContent = dureeMin;
@@ -4214,15 +5199,31 @@ function getDonneesExoParJour(nomExo) {
 
     var rangPrecedent = -1;
     var programmeTermineInfo = null;
+    var cycleTermineInfo = null;
+
+    function ouvrirOverlayCycleTermine(nomCycleFini, nomCycleSuivant) {
+      document.getElementById("cycle-termine-nom").textContent = nomCycleFini;
+      document.getElementById("cycle-termine-suivant").textContent = nomCycleSuivant ? ("Direction : " + nomCycleSuivant + " !") : "";
+      document.getElementById("overlay-cycle-termine").classList.add("actif");
+    }
+
+    function fermerOverlayCycleTermine() {
+      document.getElementById("overlay-cycle-termine").classList.remove("actif");
+      afficherAccueil();
+    }
     var infoProgrammeTermineAffiche = null;
 
-    function ouvrirModalFinProgramme(info) {
+function ouvrirModalFinProgramme(info) {
       infoProgrammeTermineAffiche = info;
       document.getElementById("fin-prog-titre").textContent = "Programme termin\u00e9 !";
       document.getElementById("fin-prog-texte").textContent = "Tu as termin\u00e9 \u00ab " + info.nom + " \u00bb. Bravo, Padawan !";
+      var flash = document.getElementById("fin-prog-flash");
+      flash.classList.add("actif");
+      setTimeout(function() { flash.classList.remove("actif"); }, 700);
+      if (navigator.vibrate) navigator.vibrate([150, 80, 150, 80, 200]);
+      jouerSonBadge();
       document.getElementById("modal-fin-programme").classList.add("actif");
     }
-
     function fermerModalFinProgramme() {
       document.getElementById("modal-fin-programme").classList.remove("actif");
       infoProgrammeTermineAffiche = null;
@@ -4591,6 +5592,7 @@ function getDonneesExoParJour(nomExo) {
     }
 
     function jouerSonSabre(type) {
+      if (!sonActif()) return;
       try {
         var ctx = new (window.AudioContext || window.webkitAudioContext)();
 
@@ -4730,6 +5732,7 @@ function getDonneesExoParJour(nomExo) {
     }
 
     function jouerSonRang(theme) {
+      if (!sonActif()) return;
       try {
         var ctx = new (window.AudioContext || window.webkitAudioContext)();
         var notes = theme === "obscur" ? [130, 155, 196, 261] : [261, 329, 392, 523];
@@ -4869,6 +5872,7 @@ function getDonneesExoParJour(nomExo) {
           if (etat.semaine_cycle >= nbSemainesCycle) {
             var indexCycle = prog.cycles_detail.findIndex(function(c) { return c.id === etat.cycle; });
             if (indexCycle < prog.cycles_detail.length - 1) {
+              cycleTermineInfo = { nomFini: prog.cycles_detail[indexCycle].nom, nomSuivant: prog.cycles_detail[indexCycle + 1].nom };
               etat.cycle = prog.cycles_detail[indexCycle + 1].id;
               etat.semaine_cycle = 1;
             } else {
@@ -4890,6 +5894,33 @@ function getDonneesExoParJour(nomExo) {
       seanceEnCours = null;
       cacherTousLesEcrans();
       if (!rangMonte) afficherAccueil();
+    }
+
+    function sonActif() {
+      var v = localStorage.getItem("profil_" + profilActif.nom + "_son_actif");
+      return v === null ? true : v === "true";
+    }
+
+    function volumeSon() {
+      var v = localStorage.getItem("profil_" + profilActif.nom + "_volume_son");
+      return v === null ? 0.7 : parseFloat(v);
+    }
+
+    function toggleSonActif() {
+      var actif = !sonActif();
+      localStorage.setItem("profil_" + profilActif.nom + "_son_actif", actif ? "true" : "false");
+      document.getElementById("param-switch-son").classList.toggle("actif", actif);
+    }
+
+    function ajusterVolumeSon(val) {
+      localStorage.setItem("profil_" + profilActif.nom + "_volume_son", val / 100);
+    }
+
+    function afficherParametres() {
+      cacherTousLesEcrans();
+      document.getElementById("ecran-parametres").classList.add("actif");
+      document.getElementById("param-switch-son").classList.toggle("actif", sonActif());
+      document.getElementById("param-volume-slider").value = Math.round(volumeSon() * 100);
     }
 
     function afficherProfil() {
@@ -5299,16 +6330,24 @@ function getDonneesExoParJour(nomExo) {
     }
 
     function changerProfil() {
-      if (confirm("Changer de profil ?")) {
-        clearInterval(chronoInterval);
-        clearInterval(timerInterval);
-        profilActif = null;
-        document.body.classList.remove("obscur");
-        document.getElementById("nav-bas").style.display = "none";
-        cacherTousLesEcrans();
-        document.getElementById("ecran-profil").style.display = "flex";
-        afficherProfils();
-      }
+      document.getElementById("modal-changer-profil").classList.add("actif");
+    }
+
+    function fermerModalChangerProfil() {
+      document.getElementById("modal-changer-profil").classList.remove("actif");
+    }
+
+    function confirmerChangerProfil() {
+      fermerModalChangerProfil();
+      localStorage.removeItem("alinx_dernier_profil");
+      clearInterval(chronoInterval);
+      clearInterval(timerInterval);
+      profilActif = null;
+      document.body.classList.remove("obscur");
+      document.getElementById("nav-bas").style.display = "none";
+      cacherTousLesEcrans();
+      document.getElementById("ecran-profil").style.display = "flex";
+      afficherProfils();
     }
 
     var progACommencer = null;
@@ -5399,7 +6438,13 @@ function getDonneesExoParJour(nomExo) {
       afficherAccueil();
     }
 
-    afficherProfils();
+    var nomDernierProfil = localStorage.getItem("alinx_dernier_profil");
+    var profilARestaurer = profils.filter(function(p) { return p.nom === nomDernierProfil; })[0];
+    if (profilARestaurer) {
+      choisirProfil(profilARestaurer);
+    } else {
+      afficherProfils();
+    }
 
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", function() {
