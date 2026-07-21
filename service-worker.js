@@ -14,7 +14,13 @@ var FICHIERS_A_METTRE_EN_CACHE = [
 self.addEventListener("install", function(event) {
   event.waitUntil(
     caches.open(VERSION_CACHE).then(function(cache) {
-      return cache.addAll(FICHIERS_A_METTRE_EN_CACHE);
+      return Promise.all(
+        FICHIERS_A_METTRE_EN_CACHE.map(function(url) {
+          return fetch(url, { cache: "reload" }).then(function(reponse) {
+            return cache.put(url, reponse);
+          });
+        })
+      );
     })
   );
   self.skipWaiting();
@@ -39,19 +45,34 @@ self.addEventListener("fetch", function(event) {
   if (!event.request.url.startsWith("http")) {
     return;
   }
-  event.respondWith(
-    caches.match(event.request).then(function(reponseEnCache) {
-      if (reponseEnCache) {
-        return reponseEnCache;
-      }
-      return fetch(event.request).then(function(reponseReseau) {
+
+  if (event.request.mode === "navigate") {
+    event.respondWith(
+      fetch(event.request).then(function(reponseReseau) {
         return caches.open(VERSION_CACHE).then(function(cache) {
           cache.put(event.request, reponseReseau.clone());
           return reponseReseau;
         });
       }).catch(function() {
-        return caches.match("./index.html");
+        return caches.match(event.request).then(function(reponseEnCache) {
+          return reponseEnCache || caches.match("./index.html");
+        });
+      })
+    );
+    return;
+  }
+
+  event.respondWith(
+    caches.match(event.request).then(function(reponseEnCache) {
+      var recuperationReseau = fetch(event.request).then(function(reponseReseau) {
+        caches.open(VERSION_CACHE).then(function(cache) {
+          cache.put(event.request, reponseReseau.clone());
+        });
+        return reponseReseau;
+      }).catch(function() {
+        return reponseEnCache;
       });
+      return reponseEnCache || recuperationReseau;
     })
   );
 });
